@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "adjust_bottle",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:946633f282ffbae0bcb7462ebe2bc4f27678308a0d4e9151831655e6a058960c",
+  "successes": 0,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instruction": "Use the right arm to grab the bottle the brown bottle",
+      "success": false
+    }
+  ]
+}

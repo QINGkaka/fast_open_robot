@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "open_microwave",
+  "mode": "demo_randomized",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instructions": {
+        "seen": "Pull the the gray microwave with two control knobs's handle using the left arm.",
+        "unseen": "Open the medium gray microwave with top vents by pulling its door handle."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:182ea4db25a1eecb28a96086da0f97ba6e4a5b4cec1cad4074df37219b82ea39"
+}

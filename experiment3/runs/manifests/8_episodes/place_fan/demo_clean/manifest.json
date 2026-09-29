@@ -1,0 +1,72 @@
+{
+  "benchmark": "robotwin",
+  "task": "place_fan",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100002,
+      "instructions": {
+        "seen": "Using the left arm, grab the fan with rectangular base, face it towards the robot, and set it on the Tan mat.",
+        "unseen": "Pick up the plastic fan and set it on the Tan mat facing the robot."
+      }
+    },
+    {
+      "episode": 1,
+      "seed": 100003,
+      "instructions": {
+        "seen": "Using the right arm, grab the round white fan and put it on the Beige mat facing the robot.",
+        "unseen": "Grab the plastic fan with the right arm and position it on the Beige mat facing the robot."
+      }
+    },
+    {
+      "episode": 2,
+      "seed": 100004,
+      "instructions": {
+        "seen": "Pick the fan with grid cover with the left arm, ensure it faces the robot, and put it on the Turquoise mat.",
+        "unseen": "Pick the fan with small round shape, place it on the Turquoise mat, face it toward the robot"
+      }
+    },
+    {
+      "episode": 3,
+      "seed": 100005,
+      "instructions": {
+        "seen": "Pick the table fan with white finish, place it on the Brown mat, and ensure it points toward the robot.",
+        "unseen": "Grab the fan with small round shape and set it on the Brown mat facing the robot."
+      }
+    },
+    {
+      "episode": 4,
+      "seed": 100006,
+      "instructions": {
+        "seen": "Grab the small handheld fan with the right arm, place it on the Silver mat, ensure it faces the robot.",
+        "unseen": "Pick the beige circular blade fan and set it on the Silver mat facing the robot."
+      }
+    },
+    {
+      "episode": 5,
+      "seed": 100007,
+      "instructions": {
+        "seen": "Set the fan with rectangular base onto the Green colored mat, oriented towards the robot.",
+        "unseen": "Pick the plastic fan, place it on the Green mat, face it toward the robot"
+      }
+    },
+    {
+      "episode": 6,
+      "seed": 100008,
+      "instructions": {
+        "seen": "Use the left arm to grab the rounded fan with central handle, set it on Orange mat, and make it face the robot.",
+        "unseen": "Pick the off-white fan with beige accents, place it on the Orange mat, face it toward the robot"
+      }
+    },
+    {
+      "episode": 7,
+      "seed": 100009,
+      "instructions": {
+        "seen": "Grab the fan with rectangular base using the right arm and position it on the Black mat facing the robot.",
+        "unseen": "Use the right arm to grab the fan with small round shape and place it on the Black mat facing the robot."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:0d30aea786e27df58892e7a755f45831a7a7fdbe7360049a8c29d24d2a84784b"
+}

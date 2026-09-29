@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "handover_block",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Grasp the block in your left arm, pass it into the right, and place it onto the blue pad.",
+        "unseen": "Grab the red block with the left arm, switch to the right arm, and set it on the blue pad."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:81acc86b30d1969937f4b012ee1584f182fa7db3b6dd1df45e0dccbb2c5ee197"
+}

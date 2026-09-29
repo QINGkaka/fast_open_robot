@@ -1,0 +1,45 @@
+2026-09-28 16:41:28,262 [INFO] openwam.model.action_backbone.components: Using attention backend: sdpa (auto-detected)
+2026-09-28 16:41:28,263 [INFO] deploy: Attention backend diagnostics:
+  ActionDiT          : _sdpa
+  Video DiT          : torch_sdpa
+  Wan shared core    : torch
+Traceback (most recent call last):
+  File "/root/data/robot/OpenWAM/scripts/deploy.py", line 20, in <module>
+    main()
+  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 681, in main
+    server = build_server_from_config(
+  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 361, in build_server_from_config
+    training_cfg, architecture = load_from_checkpoint_dir(ckpt_dir, device=device, ckpt_name=ckpt_name)
+  File "/root/data/robot/OpenWAM/openwam/deploy/model_loader.py", line 86, in load_from_checkpoint_dir
+    cfg = OmegaConf.load(config_path)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/omegaconf/omegaconf.py", line 190, in load
+    obj = yaml.load(f, Loader=get_yaml_loader())
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/__init__.py", line 81, in load
+    return loader.get_single_data()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/constructor.py", line 49, in get_single_data
+    node = self.get_single_node()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/composer.py", line 36, in get_single_node
+    document = self.compose_document()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/composer.py", line 55, in compose_document
+    node = self.compose_node(None, None)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/composer.py", line 133, in compose_mapping_node
+    item_value = self.compose_node(node, item_key)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/composer.py", line 84, in compose_node
+    node = self.compose_mapping_node(anchor)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/composer.py", line 127, in compose_mapping_node
+    while not self.check_event(MappingEndEvent):
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/parser.py", line 98, in check_event
+    self.current_event = self.state()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/parser.py", line 428, in parse_block_mapping_key
+    if self.check_token(KeyToken):
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/scanner.py", line 116, in check_token
+    self.fetch_more_tokens()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/scanner.py", line 223, in fetch_more_tokens
+    return self.fetch_value()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/yaml/scanner.py", line 577, in fetch_value
+    raise ScannerError(None, None,
+yaml.scanner.ScannerError: mapping values are not allowed here
+  in "/root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only/config.yaml", line 183, column 29
+ERROR conda.cli.main_run:execute(142): `conda run python scripts/deploy.py --ckpt-dir /root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only --device cuda:5 --host 127.0.0.1 --port 8848 --compile-enabled false` failed. (See above for error)

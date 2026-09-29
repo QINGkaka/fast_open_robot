@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "move_can_pot",
+  "mode": "demo_randomized",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Pick up the sauce can with flat bottom with the left arm and set by the round kitchenpot",
+        "unseen": "Grab the smooth cylindrical sauce can and place it beside the medium kitchenpot"
+      }
+    }
+  ],
+  "manifest_hash": "sha256:43005d2b58e7c2a96d6d7947c31b4b401e44b4d786aa2808cce79a7a7afc4e7a"
+}

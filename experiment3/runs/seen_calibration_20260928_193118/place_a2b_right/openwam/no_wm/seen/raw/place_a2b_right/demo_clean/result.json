@@ -1,0 +1,61 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "place_a2b_right",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 8,
+  "total_episodes": 8,
+  "manifest_hash": "sha256:94ba18ac512467217c2671313f30f8b33d00c48fb314a0d899959ad9f1639b31",
+  "successes": 0,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Put the smooth soap to the right of the toycar with smooth finish.",
+      "success": false
+    },
+    {
+      "episode": 1,
+      "seed": 100001,
+      "instruction": "Put the round braided loaf to the right of the dark gray computer mouse with logo.",
+      "success": false
+    },
+    {
+      "episode": 2,
+      "seed": 100002,
+      "instruction": "Put the rounded loaf bread to the right of the bright green toycar.",
+      "success": false
+    },
+    {
+      "episode": 3,
+      "seed": 100003,
+      "instruction": "Set the blue bell with glossy finish on the right of the small rounded plastic mouse.",
+      "success": false
+    },
+    {
+      "episode": 4,
+      "seed": 100004,
+      "instruction": "Grab the coffee box with dark brown top and place it right of the phone with rounded edges.",
+      "success": false
+    },
+    {
+      "episode": 5,
+      "seed": 100005,
+      "instruction": "Put the stapler with white loading section to the right of the rounded woodenblock with grain texture",
+      "success": false
+    },
+    {
+      "episode": 6,
+      "seed": 100006,
+      "instruction": "Put the dark phone with shiny finish to the right of the dark gray computer mouse with logo.",
+      "success": false
+    },
+    {
+      "episode": 7,
+      "seed": 100007,
+      "instruction": "Grab the hand-sized dark gray mouse and place it right of the loaf-shaped brown bread.",
+      "success": false
+    }
+  ]
+}

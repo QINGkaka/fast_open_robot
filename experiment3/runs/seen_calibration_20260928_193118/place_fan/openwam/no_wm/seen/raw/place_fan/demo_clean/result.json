@@ -1,0 +1,61 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "place_fan",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 8,
+  "total_episodes": 8,
+  "manifest_hash": "sha256:0d30aea786e27df58892e7a755f45831a7a7fdbe7360049a8c29d24d2a84784b",
+  "successes": 0,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100002,
+      "instruction": "Pick up the plastic fan and set it on the Tan mat facing the robot.",
+      "success": false
+    },
+    {
+      "episode": 1,
+      "seed": 100003,
+      "instruction": "Grab the plastic fan with the right arm and position it on the Beige mat facing the robot.",
+      "success": false
+    },
+    {
+      "episode": 2,
+      "seed": 100004,
+      "instruction": "Pick the fan with small round shape, place it on the Turquoise mat, face it toward the robot",
+      "success": false
+    },
+    {
+      "episode": 3,
+      "seed": 100005,
+      "instruction": "Grab the fan with small round shape and set it on the Brown mat facing the robot.",
+      "success": false
+    },
+    {
+      "episode": 4,
+      "seed": 100006,
+      "instruction": "Pick the beige circular blade fan and set it on the Silver mat facing the robot.",
+      "success": false
+    },
+    {
+      "episode": 5,
+      "seed": 100007,
+      "instruction": "Pick the plastic fan, place it on the Green mat, face it toward the robot",
+      "success": false
+    },
+    {
+      "episode": 6,
+      "seed": 100008,
+      "instruction": "Pick the off-white fan with beige accents, place it on the Orange mat, face it toward the robot",
+      "success": false
+    },
+    {
+      "episode": 7,
+      "seed": 100009,
+      "instruction": "Use the right arm to grab the fan with small round shape and place it on the Black mat facing the robot.",
+      "success": false
+    }
+  ]
+}

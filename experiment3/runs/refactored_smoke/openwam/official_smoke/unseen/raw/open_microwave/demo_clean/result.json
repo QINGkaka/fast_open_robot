@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "open_microwave",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:528f9094f04a12ebb9d5064c5c66cea79983d63fb5bbb0f07d262bc4e526d56b",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Pull the medium-sized rectangular microwave with textured top open with the left arm.",
+      "success": true
+    }
+  ]
+}

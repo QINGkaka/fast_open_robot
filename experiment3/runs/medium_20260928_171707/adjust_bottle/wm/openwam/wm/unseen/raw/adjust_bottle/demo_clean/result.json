@@ -1,0 +1,37 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "adjust_bottle",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 4,
+  "total_episodes": 4,
+  "manifest_hash": "sha256:e7c1b8c85934cdaf9aa268ed160881cc7a7d79b8dd2709581822218ebcc46412",
+  "successes": 0,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instruction": "Use the right arm to grab the bottle the brown bottle",
+      "success": false
+    },
+    {
+      "episode": 1,
+      "seed": 100002,
+      "instruction": "Pick up the green bottle from the table head-up.",
+      "success": false
+    },
+    {
+      "episode": 2,
+      "seed": 100005,
+      "instruction": "Pick up the green plastic bottle with ridged bottom using the left arm in an upright position",
+      "success": false
+    },
+    {
+      "episode": 3,
+      "seed": 100006,
+      "instruction": "Lift the brown bottle from the table using the right arm.",
+      "success": false
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-09-28T21:04:57.707039+08:00",
+  "label": "openwam-seen-calibration-8episodes",
+  "smoke_only": true,
+  "protocol": {
+    "episodes": 8,
+    "seed": 0,
+    "instruction_type": "unseen"
+  },
+  "hardware": {
+    "openwam_model_gpu": 5,
+    "openwam_sim_gpu": 4,
+    "openwam_host": "127.0.0.1",
+    "openwam_port": 8848
+  },
+  "task_files": {
+    "seen": "/root/data/robot/experiment3/tasks/seen_40.txt",
+    "unseen": "/root/data/robot/experiment3/tasks/unseen_10.txt"
+  },
+  "repositories": [
+    {
+      "path": "/root/data/robot/FastWAM",
+      "commit": "7faa71108368fbb3b6885649f112af607427a2d4",
+      "modified_tracked_files": [
+        "M configs/sim_robotwin.yaml",
+        " M experiments/robotwin/run_robotwin_manager.py",
+        " M third_party/RoboTwin/script/eval_policy.py"
+      ]
+    },
+    {
+      "path": "/root/data/robot/OpenWAM",
+      "commit": "f6d9f1059eb63a8a76dc60e07da2dad21615a161",
+      "modified_tracked_files": [
+        "M openwam/deploy/model_loader.py",
+        " M openwam/model/architectures/base.py",
+        " M openwam/model/video_backbone/wan/loader.py"
+      ]
+    },
+    {
+      "path": "/root/data/robot/work/RoboTwin-openwam-verified",
+      "commit": "0aeea2d669c0f8516f4d5785f0aa33ba812c14b4",
+      "modified_tracked_files": []
+    }
+  ]
+}

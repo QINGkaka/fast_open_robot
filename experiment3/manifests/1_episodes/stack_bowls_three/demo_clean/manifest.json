@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "stack_bowls_three",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Place the first the rounded bowl with light blue color down, then stack the next two above it.",
+        "unseen": "Grab the first the light blue bowl with darkened rim and stack the others on top."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:4b83889831ee76b0c0479f75542065e6fd76f1f0d6a2b74b8e8d4d4376f99b69"
+}

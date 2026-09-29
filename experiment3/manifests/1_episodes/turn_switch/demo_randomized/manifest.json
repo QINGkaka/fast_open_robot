@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "turn_switch",
+  "mode": "demo_randomized",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Activate the control switch with red lever directly",
+        "unseen": "Move and click the the hand-sized square electrical switch"
+      }
+    }
+  ],
+  "manifest_hash": "sha256:0f1137eef6fd617a419b1e19a594013e84908a4468f335850f793a378ee57707"
+}

@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "open_microwave",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Pull the microwave with textured top panel's handle to open it.",
+        "unseen": "Pull the medium-sized rectangular microwave with textured top open with the left arm."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:528f9094f04a12ebb9d5064c5c66cea79983d63fb5bbb0f07d262bc4e526d56b"
+}

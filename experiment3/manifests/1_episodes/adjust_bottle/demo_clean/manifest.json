@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "adjust_bottle",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instructions": {
+        "seen": "Lift the dark drink bottle with logo head-up from the table.",
+        "unseen": "Use the right arm to grab the bottle the brown bottle"
+      }
+    }
+  ],
+  "manifest_hash": "sha256:946633f282ffbae0bcb7462ebe2bc4f27678308a0d4e9151831655e6a058960c"
+}

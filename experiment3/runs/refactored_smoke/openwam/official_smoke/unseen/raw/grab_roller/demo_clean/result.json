@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "grab_roller",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:0adca8842ca59402494b57960ff9bffe5b012f68a68a0c477d8236aaab46bcba",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Hold the light brown cylindrical roller with both arms.",
+      "success": true
+    }
+  ]
+}

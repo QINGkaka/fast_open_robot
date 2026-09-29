@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "turn_switch",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Activate the switch trapezoid shape brown marking directly",
+        "unseen": "Move and click the the lightweight plastic switch angled edges"
+      }
+    }
+  ],
+  "manifest_hash": "sha256:348cc527527610882881eec51e619a616a5a85c63316d3c7903545bafa13607f"
+}

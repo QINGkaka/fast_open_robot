@@ -1,0 +1,1 @@
+bash benchmarks/robotwin/multi_eval.sh -m demo_clean -n exp3_official_smoke_unseen_clean -d /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full --host 127.0.0.1 --port 8848 -g 0 /root/data/robot/experiment3/tasks/unseen_10.txt

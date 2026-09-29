@@ -1,0 +1,47 @@
+[eval_policy_wrapper] RoboTwin commit=0aeea2d669c0 eval_policy.py sha256=8b16c766a9c40116
+[eval_policy_wrapper] runtime_root=/root/data/robot/experiment3/runs/manifests/4_episodes/place_container_plate/demo_clean/runtime
+[eval_policy_wrapper] prewarmed CUDA/Curobo before SAPIEN import
+[eval_policy_wrapper] patched warp.torch compatibility namespace
+/root/data/miniconda3/envs/robotwin-openwam/lib/python3.10/site-packages/sapien/__init__.py:2: UserWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html. The pkg_resources package is slated for removal as early as 2025-11-30. Refrain from using this package or pin to Setuptools<81.
+  import pkg_resources
+/root/data/miniconda3/envs/robotwin-openwam/lib/python3.10/site-packages/sapien/_vulkan_tricks.py:37: UserWarning: Failed to find Vulkan ICD file. This is probably due to an incorrect or partial installation of the NVIDIA driver. SAPIEN will attempt to provide an ICD file anyway but it may not work.
+  warn(
+============= Config =============
+
+[95mMessy Table:[0m False
+[95mRandom Background:[0m False
+[95mRandom Light:[0m False
+[95mRandom Table Height:[0m 0
+[95mRandom Head Camera Distance:[0m 0
+[94mHead Camera Config:[0m D435, True
+[94mWrist Camera Config:[0m D435, True
+[94mEmbodiment Config:[0m aloha-agilex
+
+==================================
+missing pytorch3d
+[eval_policy_wrapper] overriding RoboTwin eval test_num=4
+[eval_policy_wrapper] exception in place_container_plate.play_once
+Traceback (most recent call last):
+  File "/root/data/robot/OpenWAM/benchmarks/robotwin/eval_policy_wrapper.py", line 218, in wrapped
+    return method(*args, **kwargs)
+  File "/root/data/robot/work/RoboTwin-openwam-verified/envs/place_container_plate.py", line 63, in play_once
+    self.grasp_actor(
+  File "/root/data/robot/work/RoboTwin-openwam-verified/envs/_base_task.py", line 1205, in grasp_actor
+    Action(arm_tag, "move", target_pose=pre_grasp_pose),
+  File "/root/data/robot/work/RoboTwin-openwam-verified/envs/utils/action.py", line 76, in __init__
+    assert (target_pose is not None), "target_pose cannot be None for move action."
+AssertionError: target_pose cannot be None for move action.
+[eval_policy_wrapper] expert check skipped seed=100001: AssertionError
+[eval_policy_wrapper] exception in place_container_plate.play_once
+Traceback (most recent call last):
+  File "/root/data/robot/OpenWAM/benchmarks/robotwin/eval_policy_wrapper.py", line 218, in wrapped
+    return method(*args, **kwargs)
+  File "/root/data/robot/work/RoboTwin-openwam-verified/envs/place_container_plate.py", line 63, in play_once
+    self.grasp_actor(
+  File "/root/data/robot/work/RoboTwin-openwam-verified/envs/_base_task.py", line 1205, in grasp_actor
+    Action(arm_tag, "move", target_pose=pre_grasp_pose),
+  File "/root/data/robot/work/RoboTwin-openwam-verified/envs/utils/action.py", line 76, in __init__
+    assert (target_pose is not None), "target_pose cannot be None for move action."
+AssertionError: target_pose cannot be None for move action.
+[eval_policy_wrapper] expert check skipped seed=100002: AssertionError
+Data has been saved to eval_result/place_container_plate/openwam2robotwin_interface/demo_clean/openwam/2026-09-28 18:29:48/_result.txt

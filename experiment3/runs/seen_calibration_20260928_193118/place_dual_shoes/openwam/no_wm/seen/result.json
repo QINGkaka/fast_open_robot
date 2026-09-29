@@ -1,0 +1,17 @@
+{
+  "family": "openwam",
+  "method": "no_wm",
+  "split": "seen",
+  "checkpoint": "/root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only",
+  "task_file": "/root/data/robot/experiment3/tasks/seen_40.txt",
+  "num_tasks": 1,
+  "means": {
+    "clean": 0.0
+  },
+  "per_task": [
+    {
+      "task": "place_dual_shoes",
+      "clean": 0.0
+    }
+  ]
+}

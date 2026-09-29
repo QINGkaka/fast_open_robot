@@ -1,0 +1,40 @@
+{
+  "benchmark": "robotwin",
+  "task": "place_container_plate",
+  "mode": "demo_randomized",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Drop the container onto the food plate using the rounded bowl with open top",
+        "unseen": "Grab container with the curved bowl with smooth texture, place it on the gray plate."
+      }
+    },
+    {
+      "episode": 1,
+      "seed": 100001,
+      "instructions": {
+        "seen": "Position the container onto the flat ceramic plate with smooth texture using the medium bowl for food or items.",
+        "unseen": "Grab container with the medium-sized white serving bowl, place it on the gray plate."
+      }
+    },
+    {
+      "episode": 2,
+      "seed": 100002,
+      "instructions": {
+        "seen": "Position the simple serving bowl to lower the container on the greenish-gray flat dinner plate",
+        "unseen": "Grab container with the black and white round bowl, place it on the gray plate for dining."
+      }
+    },
+    {
+      "episode": 3,
+      "seed": 100003,
+      "instructions": {
+        "seen": "Catch the container with the blue bowl and drop onto the smooth greenish table plate.",
+        "unseen": "Place the container onto the smooth round plate for serving with the small smooth brown-rimmed bowl"
+      }
+    }
+  ],
+  "manifest_hash": "sha256:aa2c17ff2941199d5b2fe1b0211f947bb2a76452fdb5570290b7a3f841b2cb4e"
+}

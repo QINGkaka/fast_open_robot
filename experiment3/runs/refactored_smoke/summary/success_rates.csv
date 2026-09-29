@@ -1,0 +1,5 @@
+family,method,split,condition,success_rate
+fastwam,official_smoke,unseen,clean,0.8
+fastwam,official_smoke,unseen,randomized,0.9
+openwam,official_smoke,unseen,clean,1.0
+openwam,official_smoke,unseen,randomized,0.9

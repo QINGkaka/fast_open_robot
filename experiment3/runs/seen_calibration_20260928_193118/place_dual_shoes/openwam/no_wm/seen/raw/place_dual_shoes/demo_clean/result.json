@@ -1,0 +1,61 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "place_dual_shoes",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 8,
+  "total_episodes": 8,
+  "manifest_hash": "sha256:be6686aadae623fa9c955d727f9cff60d78ed383d47ee1b0593aa0f3fc67691a",
+  "successes": 0,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instruction": "Use both arms to move two the white shoe to the rectangular Nike box for shoes, tips pointing left.",
+      "success": false
+    },
+    {
+      "episode": 1,
+      "seed": 100002,
+      "instruction": "Put a pair of the shoe with striped design in the the orange box for keeping shoes, tips pointing left.",
+      "success": false
+    },
+    {
+      "episode": 2,
+      "seed": 100004,
+      "instruction": "Pick up two the shoe with black stripe design, tips left, into the medium cardboard shoe-box.",
+      "success": false
+    },
+    {
+      "episode": 3,
+      "seed": 100007,
+      "instruction": "Pick up two the shoe with rubber bottom, tips left, into the rectangular Nike box for shoes.",
+      "success": false
+    },
+    {
+      "episode": 4,
+      "seed": 100009,
+      "instruction": "Grab a pair of the smooth plastic shoe, place left tips in the medium cardboard shoe-box.",
+      "success": false
+    },
+    {
+      "episode": 5,
+      "seed": 100011,
+      "instruction": "Place two the white leather shoe with gum sole into the medium cardboard shoe-box, tips left.",
+      "success": false
+    },
+    {
+      "episode": 6,
+      "seed": 100012,
+      "instruction": "Place two the shoe with padded collar and tongue into the orange box for keeping shoes, tips left.",
+      "success": false
+    },
+    {
+      "episode": 7,
+      "seed": 100016,
+      "instruction": "Place two the green shoe into the rectangular Nike box for shoes, tips left.",
+      "success": false
+    }
+  ]
+}

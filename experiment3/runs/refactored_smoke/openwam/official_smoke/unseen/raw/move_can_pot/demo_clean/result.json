@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "move_can_pot",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:15cb732844e11f7e36f73ded6c833757033b9c71e1002c3d9f82ea258c83b842",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab the sauce can with smooth surface and place it beside the kitchenpot for stovetop boiling",
+      "success": true
+    }
+  ]
+}

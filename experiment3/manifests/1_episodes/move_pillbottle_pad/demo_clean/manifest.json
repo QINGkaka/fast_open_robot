@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "move_pillbottle_pad",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100002,
+      "instructions": {
+        "seen": "Place the white body bottle with textured cap on the pad after lifting it up.",
+        "unseen": "Pick the orange capped bottle and set it on the pad"
+      }
+    }
+  ],
+  "manifest_hash": "sha256:68d47072180dc7463dd4f99b60605535df377f2b32254421ee5ba09fd43f4557"
+}

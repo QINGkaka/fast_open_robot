@@ -1,0 +1,37 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "place_container_plate",
+  "mode": "demo_randomized",
+  "episode_start": 0,
+  "num_episodes": 4,
+  "total_episodes": 4,
+  "manifest_hash": "sha256:aa2c17ff2941199d5b2fe1b0211f947bb2a76452fdb5570290b7a3f841b2cb4e",
+  "successes": 2,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab container with the curved bowl with smooth texture, place it on the gray plate.",
+      "success": true
+    },
+    {
+      "episode": 1,
+      "seed": 100001,
+      "instruction": "Grab container with the medium-sized white serving bowl, place it on the gray plate.",
+      "success": false
+    },
+    {
+      "episode": 2,
+      "seed": 100002,
+      "instruction": "Grab container with the black and white round bowl, place it on the gray plate for dining.",
+      "success": true
+    },
+    {
+      "episode": 3,
+      "seed": 100003,
+      "instruction": "Place the container onto the smooth round plate for serving with the small smooth brown-rimmed bowl",
+      "success": false
+    }
+  ]
+}

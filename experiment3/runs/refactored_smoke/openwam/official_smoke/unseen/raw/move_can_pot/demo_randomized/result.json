@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "move_can_pot",
+  "mode": "demo_randomized",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:43005d2b58e7c2a96d6d7947c31b4b401e44b4d786aa2808cce79a7a7afc4e7a",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab the smooth cylindrical sauce can and place it beside the medium kitchenpot",
+      "success": true
+    }
+  ]
+}

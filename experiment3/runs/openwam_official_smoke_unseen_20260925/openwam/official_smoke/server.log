@@ -1,0 +1,71 @@
+2026-09-25 00:21:51,875 [INFO] openwam.model.action_backbone.components: Using attention backend: sdpa (auto-detected)
+2026-09-25 00:21:51,876 [INFO] deploy: Attention backend diagnostics:
+  ActionDiT          : _sdpa
+  Video DiT          : torch_sdpa
+  Wan shared core    : torch
+2026-09-25 00:21:51,911 [INFO] openwam.deploy.model_loader: Loading checkpoint: /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full/checkpoint_step_118655.safetensors
+2026-09-25 00:21:51,912 [INFO] openwam.deploy.model_loader: Using config-embedded component specs for video-backbone construction
+2026-09-25 00:21:51,914 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.dit.WanModel as holder.dit (extra_kwargs keys=['has_image_input', 'patch_size', 'in_dim', 'dim', 'ffn_dim', 'freq_dim', 'text_dim', 'out_dim', 'num_heads', 'num_layers', 'eps', 'seperated_timestep', 'require_clip_embedding', 'require_vae_embedding', 'fuse_vae_embedding_in_latents'])
+2026-09-25 00:22:26,123 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.vae.WanVideoVAE38 as holder.vae (extra_kwargs keys=[])
+2026-09-25 00:22:30,955 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.text_encoder.WanTextEncoder as holder.text_encoder (extra_kwargs keys=[])
+2026-09-25 00:23:41,795 [INFO] openwam.deploy.model_loader: Architecture: dual_system_self_attn (framework=dual_system variant=joint_self_attn)
+2026-09-25 00:23:43,996 [INFO] openwam.deploy.model_loader: Loading all models with dtype=torch.bfloat16 (mixed_precision=bf16)
+2026-09-25 00:23:49,301 [INFO] openwam.deploy.model_loader: [normalizer] Resolving deployment action normalizer from checkpoint dir: /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full
+2026-09-25 00:23:49,302 [INFO] openwam.deploy.model_loader: [normalizer] Saved config: normalize_mode=min-max, action_mode=eef
+2026-09-25 00:23:49,303 [INFO] openwam.deploy.model_loader: [normalizer] Found pre-computed stats file: /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full/normalization_stats.npy (exists ✓)
+2026-09-25 00:23:50,274 [INFO] openwam.deploy.model_loader: [normalizer] Active: mode=min-max action_mode=eef dim=20 stats=/root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full/normalization_stats.npy
+2026-09-25 00:23:50,275 [INFO] openwam.deploy.model_loader: [normalizer/unify] ON: action 80D -> raw 20D; raw state 20D -> 80D unified; then unnormalize.
+2026-09-25 00:23:50,275 [INFO] openwam.deploy.model_loader: Model loaded successfully on cuda:6
+2026-09-25 00:23:50,291 [INFO] openwam.deploy.engine: DiT velocity cache enabled (threshold=0.990)
+2026-09-25 00:23:50,291 [INFO] deploy: Inference engine ready — steps=10 denoise_mode=sync
+2026-09-25 00:23:50,297 [INFO] openwam.deploy.server: [obs] View config: multiview=True, camera_layout=['head_camera', 'left_camera', 'right_camera'], canvas=384x320
+2026-09-25 00:23:50,297 [INFO] openwam.deploy.server: Starting PolicyServer: ws://127.0.0.1:8848
+2026-09-25 00:23:50,324 [INFO] websockets.server: server listening on 127.0.0.1:8848
+2026-09-25 00:23:50,324 [INFO] openwam.deploy.server: WebSocket server started on ws://127.0.0.1:8848
+2026-09-25 00:23:52,041 [ERROR] websockets.server: opening handshake failed
+Traceback (most recent call last):
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 138, in parse
+    request_line = yield from parse_line(read_line)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 320, in parse_line
+    line = yield from read_line(MAX_LINE_LENGTH)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/streams.py", line 46, in read_line
+    raise EOFError(f"stream ends after {p} bytes, before end of line")
+EOFError: stream ends after 0 bytes, before end of line
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/server.py", line 547, in parse
+    request = yield from Request.parse(
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 140, in parse
+    raise EOFError("connection closed while reading HTTP request line") from exc
+EOFError: connection closed while reading HTTP request line
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 356, in conn_handler
+    await connection.handshake(
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 207, in handshake
+    raise self.protocol.handshake_exc
+websockets.exceptions.InvalidMessage: did not receive a valid HTTP request
+2026-09-25 00:24:34,286 [INFO] websockets.server: server closing
+2026-09-25 00:24:34,286 [INFO] websockets.server: server closed
+Traceback (most recent call last):
+  File "/root/data/robot/OpenWAM/scripts/deploy.py", line 20, in <module>
+    main()
+  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 693, in main
+    server.run(host=host, port=port)
+  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 310, in run
+    asyncio.run(serve())
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/runners.py", line 44, in run
+    return loop.run_until_complete(main)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
+    self.run_forever()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
+    self._run_once()
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
+    event_list = self._selector.select(timeout)
+  File "/root/data/miniconda3/envs/openwam/lib/python3.10/selectors.py", line 469, in select
+    fd_event_list = self._selector.poll(timeout, max_ev)
+KeyboardInterrupt

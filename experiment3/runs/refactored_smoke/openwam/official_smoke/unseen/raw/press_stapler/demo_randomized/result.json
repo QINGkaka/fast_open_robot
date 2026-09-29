@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "press_stapler",
+  "mode": "demo_randomized",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:d97859de4bc7bbff8c9038be645750a1510563dd4ca58a35c00fbe21e535d483",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Press the stapler the stapler with white loading section with the arm the left arm.",
+      "success": true
+    }
+  ]
+}

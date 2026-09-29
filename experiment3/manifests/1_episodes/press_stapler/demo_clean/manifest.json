@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "press_stapler",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Press on the handy blue stapler with metal parts to activate it.",
+        "unseen": "Press the stapler the rectangular stapler with curved corners with the arm the left arm."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:630b96cb70e21ed9fc8aa2a305262c83626b0346f9a48638c06f57dffd7f66ac"
+}

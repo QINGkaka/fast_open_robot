@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "handover_block",
+  "mode": "demo_randomized",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instructions": {
+        "seen": "Pass the red block from the left to the right.",
+        "unseen": "Grab the red block using the left arm."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:2ae36af8d9c352f9f6d28ca11f18d5b6bc42586ef7c8c84f01b3d12812b36143"
+}

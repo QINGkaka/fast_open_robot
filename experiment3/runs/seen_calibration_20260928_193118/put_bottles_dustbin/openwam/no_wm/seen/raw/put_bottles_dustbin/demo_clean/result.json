@@ -1,0 +1,61 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "put_bottles_dustbin",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 8,
+  "total_episodes": 8,
+  "manifest_hash": "sha256:47a38c133e58c2b860f667f231fe88f81f8db1213f9b271dbbffefc081194eee",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Pick up the plastic bottle with two distinct parts, the plastic bottle, and the plastic bottle with ridges near bottom one by one and drop them into the curved rectangular trash can.",
+      "success": false
+    },
+    {
+      "episode": 1,
+      "seed": 100002,
+      "instruction": "Pick up the plastic bottle with two distinct parts and toss it into the smooth surface dustbin; repeat for the bottle with blue highlights and the medium black bottle.",
+      "success": false
+    },
+    {
+      "episode": 2,
+      "seed": 100004,
+      "instruction": "Grab the plastic bottle with two distinct parts and place it in the curved rectangular trash can, then do the same for the plastic bottle and the plastic bottle with ridges near bottom.",
+      "success": false
+    },
+    {
+      "episode": 3,
+      "seed": 100005,
+      "instruction": "Pick up the yellow plastic bottle, drop it into the curved rectangular trash can, then repeat for the bottle with ridges and the plastic bottle with ridges near bottom.",
+      "success": false
+    },
+    {
+      "episode": 4,
+      "seed": 100006,
+      "instruction": "Pick up the yellow plastic bottle, the bottle with ridges, and the medium black bottle one by one and drop them into the smooth surface dustbin.",
+      "success": false
+    },
+    {
+      "episode": 5,
+      "seed": 100007,
+      "instruction": "Grab the yellow plastic bottle and place it in the curved rectangular trash can, then do the same for the bottle with blue highlights and the medium black bottle.",
+      "success": false
+    },
+    {
+      "episode": 6,
+      "seed": 100008,
+      "instruction": "Grab the plastic bottle with two distinct parts and place it in the smooth surface dustbin, then do the same for the plastic bottle and the medium black bottle.",
+      "success": false
+    },
+    {
+      "episode": 7,
+      "seed": 100009,
+      "instruction": "Take each bottle the plastic bottle with two distinct parts, the bottle with blue highlights, the medium black bottle one by one and place them in the simple black garbage bin.",
+      "success": true
+    }
+  ]
+}

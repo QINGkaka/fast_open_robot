@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "handover_block",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:81acc86b30d1969937f4b012ee1584f182fa7db3b6dd1df45e0dccbb2c5ee197",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab the red block with the left arm, switch to the right arm, and set it on the blue pad.",
+      "success": true
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "stack_bowls_three",
+  "mode": "demo_randomized",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:2d4eb4a3488b37f8bb19475d3e2cc26d1a15d3b9740985b935765450b88f2597",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab the first the light blue bowl with darkened rim and stack the others on top.",
+      "success": true
+    }
+  ]
+}

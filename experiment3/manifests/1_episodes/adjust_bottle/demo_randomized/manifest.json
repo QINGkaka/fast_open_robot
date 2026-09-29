@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "adjust_bottle",
+  "mode": "demo_randomized",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Pick the smooth bottle with red lid upright from the table",
+        "unseen": "Lift the bottle with red screw cap from the table using the left arm."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:5171e2cb82a879a3aee1dde7fcf63ec6db34c6b157a571b462d1d0ba035af1be"
+}

@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "grab_roller",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Lift the roller with polished surface off the table with arms.",
+        "unseen": "Hold the light brown cylindrical roller with both arms."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:0adca8842ca59402494b57960ff9bffe5b012f68a68a0c477d8236aaab46bcba"
+}

@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "turn_switch",
+  "mode": "demo_randomized",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:0f1137eef6fd617a419b1e19a594013e84908a4468f335850f793a378ee57707",
+  "successes": 0,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Move and click the the hand-sized square electrical switch",
+      "success": false
+    }
+  ]
+}

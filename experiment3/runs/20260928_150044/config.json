@@ -1,0 +1,46 @@
+{
+  "label": "openwam-clean40-one-episode",
+  "smoke_only": true,
+  "paths": {
+    "fastwam_repo": "/root/data/robot/FastWAM",
+    "openwam_repo": "/root/data/robot/OpenWAM",
+    "robotwin_repo": "/root/data/robot/work/RoboTwin-openwam-verified",
+    "robotwin_python": "/root/data/miniconda3/envs/robotwin-openwam/bin/python",
+    "manifest_root": "/root/data/robot/experiment3/manifests/1_episodes",
+    "matched_nvidia_libs": "/root/data/robot/work/nvidia-vulkan-580.173.02/usr/lib/x86_64-linux-gnu"
+  },
+  "protocol": {
+    "episodes": 1,
+    "seed": 0,
+    "instruction_type": "unseen"
+  },
+  "runtimes": {
+    "openwam": {
+      "conda_env": "openwam"
+    }
+  },
+  "hardware": {
+    "openwam_model_gpu": 5,
+    "openwam_sim_gpu": 0,
+    "openwam_host": "127.0.0.1",
+    "openwam_port": 8848
+  },
+  "models": {
+    "openwam": {
+      "no_wm": {
+        "checkpoint_dir": "/root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only",
+        "deploy_args": [
+          "--compile-enabled",
+          "false"
+        ]
+      },
+      "wm": {
+        "checkpoint_dir": "/root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-wm-full",
+        "deploy_args": [
+          "--compile-enabled",
+          "false"
+        ]
+      }
+    }
+  }
+}

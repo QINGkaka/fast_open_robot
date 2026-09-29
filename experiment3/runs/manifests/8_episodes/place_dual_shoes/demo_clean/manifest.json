@@ -1,0 +1,72 @@
+{
+  "benchmark": "robotwin",
+  "task": "place_dual_shoes",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100001,
+      "instructions": {
+        "seen": "Place two the medium-sized rounded white shoe inside the shoe-box with Nike printed logo, make tips face left.",
+        "unseen": "Use both arms to move two the white shoe to the rectangular Nike box for shoes, tips pointing left."
+      }
+    },
+    {
+      "episode": 1,
+      "seed": 100002,
+      "instructions": {
+        "seen": "Lay down two the shoe with textured brown sole in the smooth bright orange box, tips oriented left.",
+        "unseen": "Put a pair of the shoe with striped design in the the orange box for keeping shoes, tips pointing left."
+      }
+    },
+    {
+      "episode": 2,
+      "seed": 100004,
+      "instructions": {
+        "seen": "Pick up two the smooth surface white shoe, tips left, and set them in the rectangular orange shoe-box.",
+        "unseen": "Pick up two the shoe with black stripe design, tips left, into the medium cardboard shoe-box."
+      }
+    },
+    {
+      "episode": 3,
+      "seed": 100007,
+      "instructions": {
+        "seen": "Place two the white shoe with curved sole in the shoe-box with Nike printed logo, tip left when set.",
+        "unseen": "Pick up two the shoe with rubber bottom, tips left, into the rectangular Nike box for shoes."
+      }
+    },
+    {
+      "episode": 4,
+      "seed": 100009,
+      "instructions": {
+        "seen": "Use hands to grab two the light brown shoe with white sole, tips left, drop into the orange shoe-box.",
+        "unseen": "Grab a pair of the smooth plastic shoe, place left tips in the medium cardboard shoe-box."
+      }
+    },
+    {
+      "episode": 5,
+      "seed": 100011,
+      "instructions": {
+        "seen": "Pick up two the black-striped athletic shoe, tips left, and set them in the medium-sized box with Nike swoosh.",
+        "unseen": "Place two the white leather shoe with gum sole into the medium cardboard shoe-box, tips left."
+      }
+    },
+    {
+      "episode": 6,
+      "seed": 100012,
+      "instructions": {
+        "seen": "Arrange the two the medium-sized black and white shoe, tips left, inside the orange cardboard shoe-box.",
+        "unseen": "Place two the shoe with padded collar and tongue into the orange box for keeping shoes, tips left."
+      }
+    },
+    {
+      "episode": 7,
+      "seed": 100016,
+      "instructions": {
+        "seen": "Position two the white and green shoe into the medium-sized box with Nike swoosh, shoe tips leftward.",
+        "unseen": "Place two the green shoe into the rectangular Nike box for shoes, tips left."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:be6686aadae623fa9c955d727f9cff60d78ed383d47ee1b0593aa0f3fc67691a"
+}

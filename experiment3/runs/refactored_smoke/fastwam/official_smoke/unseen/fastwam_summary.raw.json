@@ -1,0 +1,58 @@
+{
+  "per_task": [
+    {
+      "task_name": "adjust_bottle",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "grab_roller",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "place_container_plate",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "move_pillbottle_pad",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "move_can_pot",
+      "clean_success_rate": 0.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "open_microwave",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "press_stapler",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "stack_bowls_three",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 0.0
+    },
+    {
+      "task_name": "handover_block",
+      "clean_success_rate": 1.0,
+      "random_success_rate": 1.0
+    },
+    {
+      "task_name": "turn_switch",
+      "clean_success_rate": 0.0,
+      "random_success_rate": 1.0
+    }
+  ],
+  "overall": {
+    "clean_mean_success_rate": 0.8,
+    "random_mean_success_rate": 0.9
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "place_container_plate",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 1,
+  "total_episodes": 1,
+  "manifest_hash": "sha256:69eb33e98e9966c25b84518396c7908421ab5e984e562a959c4ad1aa429e6649",
+  "successes": 1,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab container with the light blue bowl with darkened rim, place it on the gray plate.",
+      "success": true
+    }
+  ]
+}

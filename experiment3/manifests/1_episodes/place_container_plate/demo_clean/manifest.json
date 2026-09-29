@@ -1,0 +1,16 @@
+{
+  "benchmark": "robotwin",
+  "task": "place_container_plate",
+  "mode": "demo_clean",
+  "entries": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instructions": {
+        "seen": "Drop the container onto the food plate using the rounded bowl with light blue color",
+        "unseen": "Grab container with the light blue bowl with darkened rim, place it on the gray plate."
+      }
+    }
+  ],
+  "manifest_hash": "sha256:69eb33e98e9966c25b84518396c7908421ab5e984e562a959c4ad1aa429e6649"
+}

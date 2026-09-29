@@ -1,0 +1,17 @@
+**/.DS_Store
+**/__pycache__/
+**/*.py[cod]
+**/.pytest_cache/
+**/.cache/
+
+# Large models, datasets, and simulator assets
+**/*.safetensors
+**/*.pt
+**/*.pth
+**/checkpoints/
+**/data/
+OpenWAM/assets/Wan2.2-TI2V-5B/
+OpenWAM/assets/openwam_ckpt/openwam_alpha/
+FastWAM/third_party/RoboTwin/assets/
+work/RoboTwin-openwam-verified/assets/
+experiment3/**/runtime/

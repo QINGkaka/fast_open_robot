@@ -1,0 +1,61 @@
+{
+  "operation": "run_eval",
+  "instruction_type": "unseen",
+  "task": "place_mouse_pad",
+  "mode": "demo_clean",
+  "episode_start": 0,
+  "num_episodes": 8,
+  "total_episodes": 8,
+  "manifest_hash": "sha256:2410b774eb5f99f2f6c3e1504ca2a9a1c496cbea190e727d30dc53352bf96d41",
+  "successes": 6,
+  "episodes": [
+    {
+      "episode": 0,
+      "seed": 100000,
+      "instruction": "Grab the wireless mouse with left and right buttons and set it on Cyan mat.",
+      "success": false
+    },
+    {
+      "episode": 1,
+      "seed": 100001,
+      "instruction": "Grab the flat-bottomed mouse and set it on the Black mat.",
+      "success": true
+    },
+    {
+      "episode": 2,
+      "seed": 100002,
+      "instruction": "Pick up the the hand-sized dark gray mouse and set it on the Black mat.",
+      "success": true
+    },
+    {
+      "episode": 3,
+      "seed": 100003,
+      "instruction": "Use the right arm to pick up the dark gray wireless mouse and drop it on Cyan mat.",
+      "success": true
+    },
+    {
+      "episode": 4,
+      "seed": 100004,
+      "instruction": "Pick the dark gray computer mouse with logo and position it on the Green colored mat.",
+      "success": true
+    },
+    {
+      "episode": 5,
+      "seed": 100005,
+      "instruction": "Pick up the the dark gray computer mouse with logo and set it on the Magenta mat.",
+      "success": true
+    },
+    {
+      "episode": 6,
+      "seed": 100006,
+      "instruction": "Grab the flat-bottomed mouse and set it on Black mat.",
+      "success": true
+    },
+    {
+      "episode": 7,
+      "seed": 100007,
+      "instruction": "Pick the dark gray wireless mouse and position it on the Green colored mat.",
+      "success": false
+    }
+  ]
+}
