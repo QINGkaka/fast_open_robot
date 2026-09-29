@@ -15,14 +15,15 @@ class EvalContext:
     config: dict[str, Any]
     splits: dict[str, Path]
     conditions: dict[str, str]
-    task_filter: str | None = None
+    task_filter: tuple[str, ...] | None = None
 
     def tasks(self, split: str) -> list[str]:
         tasks = load_tasks(self.splits[split])
         if self.task_filter is not None:
-            if self.task_filter not in tasks:
-                raise ValueError(f"Task {self.task_filter!r} is not in {split} split")
-            return [self.task_filter]
+            invalid = [task for task in self.task_filter if task not in tasks]
+            if invalid:
+                raise ValueError(f"Tasks {invalid!r} are not in {split} split")
+            return list(self.task_filter)
         return tasks
 
     def environment(self) -> dict[str, str]:

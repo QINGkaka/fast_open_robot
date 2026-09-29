@@ -220,7 +220,9 @@ def main() -> None:
     parser.add_argument("--family", choices=("all", "fastwam", "openwam"), default="all")
     parser.add_argument("--method", default="all")
     parser.add_argument("--split", choices=("all", "seen", "unseen"), default="all")
-    parser.add_argument("--task", help="Run one task only (for a paired smoke rollout)")
+    task_group = parser.add_mutually_exclusive_group()
+    task_group.add_argument("--task", help="Run one task only (for a paired smoke rollout)")
+    task_group.add_argument("--tasks", help="Run a comma-separated subset of tasks")
     parser.add_argument("--condition", choices=("all", "clean", "randomized"), default="all")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
@@ -263,7 +265,16 @@ def main() -> None:
     families = list(config["models"]) if args.family == "all" else [args.family]
     splits = list(SPLITS) if args.split == "all" else [args.split]
     conditions = CONDITIONS if args.condition == "all" else {args.condition: CONDITIONS[args.condition]}
-    context = EvalContext(config=config, splits=SPLITS, conditions=conditions, task_filter=args.task)
+    task_filter = None
+    if args.task:
+        task_filter = (args.task,)
+    elif args.tasks:
+        task_filter = tuple(task.strip() for task in args.tasks.split(",") if task.strip())
+        if not task_filter:
+            parser.error("--tasks must contain at least one task")
+        if len(set(task_filter)) != len(task_filter):
+            parser.error("--tasks must not contain duplicates")
+    context = EvalContext(config=config, splits=SPLITS, conditions=conditions, task_filter=task_filter)
     if not args.dry_run:
         ensure_manifests(config, splits, run_root, context)
     for family in families:

@@ -74,7 +74,8 @@ class OpenWAMAdapter:
                 start_new_session=True,
             )
             try:
-                _wait_for_port(host, port, server)
+                timeout = int(config["hardware"].get("openwam_startup_timeout_seconds", 300))
+                _wait_for_port(host, port, server, timeout=timeout)
             except Exception:
                 try:
                     os.killpg(server.pid, signal.SIGTERM)
