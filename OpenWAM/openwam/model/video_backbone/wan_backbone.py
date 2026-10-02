@@ -80,6 +80,9 @@ class WanBase(VideoBackbone):
         self.vace = None
         self.image_encoder = None
         self.motion_controller = None
+        self.text_encoder = None
+        self._text_embedding_cache = None
+        self._logged_cached_text_embeddings = False
         # Promote sub-modules to named children so state_dict uses clean prefixes.
         for _name in ("dit", "dit2", "vae", "vace", "vace2", "text_encoder", "image_encoder", "motion_controller"):
             _mod = getattr(holder, _name, None)
@@ -898,14 +901,30 @@ class WanBase(VideoBackbone):
             time_division_remainder=self._time_division_remainder,
         )
 
-        context, seq_lens = wan_encode.encode_text_for_inference(
-            prompt,
-            vace_cache=vace_cache,
-            prompt_embed_cache=prompt_embed_cache,
-            tokenizer=self._tokenizer,
-            text_encoder=self.text_encoder,
-            device=self.device,
-        )
+        if vace_cache and vace_cache.get("populated") and vace_cache.get("prompt_key") == prompt:
+            context, seq_lens = vace_cache["context"], vace_cache["seq_lens"]
+        elif prompt_embed_cache is not None and prompt in prompt_embed_cache:
+            context, seq_lens = prompt_embed_cache[prompt]
+        elif self._text_embedding_cache is not None:
+            context, seq_lens = self._text_embedding_cache.load_batch(
+                [prompt], device=self.device, dtype=self.dtype
+            )
+            if not self._logged_cached_text_embeddings:
+                logger.info("Using cached text embeddings for inference; skipping Wan T5 encode: %s", prompt)
+                self._logged_cached_text_embeddings = True
+            if prompt_embed_cache is not None:
+                prompt_embed_cache[prompt] = (context, seq_lens)
+        else:
+            if self._tokenizer is None or self.text_encoder is None:
+                raise RuntimeError("Wan inference has neither a text embedding cache nor a text encoder")
+            context, seq_lens = wan_encode.encode_text_for_inference(
+                prompt,
+                vace_cache=vace_cache,
+                prompt_embed_cache=prompt_embed_cache,
+                tokenizer=self._tokenizer,
+                text_encoder=self.text_encoder,
+                device=self.device,
+            )
 
         _DEFAULT_CAMERA_ORIGIN = (
             0,

@@ -1,89 +1,0 @@
-2026-09-25 00:34:51,443 [INFO] openwam.model.action_backbone.components: Using attention backend: sdpa (auto-detected)
-2026-09-25 00:34:51,443 [INFO] deploy: Attention backend diagnostics:
-  ActionDiT          : _sdpa
-  Video DiT          : torch_sdpa
-  Wan shared core    : torch
-2026-09-25 00:34:51,509 [INFO] openwam.deploy.model_loader: Loading checkpoint: /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full/checkpoint_step_118655.safetensors
-2026-09-25 00:34:51,511 [INFO] openwam.deploy.model_loader: Using config-embedded component specs for video-backbone construction
-2026-09-25 00:34:51,513 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.dit.WanModel as holder.dit (extra_kwargs keys=['has_image_input', 'patch_size', 'in_dim', 'dim', 'ffn_dim', 'freq_dim', 'text_dim', 'out_dim', 'num_heads', 'num_layers', 'eps', 'seperated_timestep', 'require_clip_embedding', 'require_vae_embedding', 'fuse_vae_embedding_in_latents'])
-2026-09-25 00:35:25,435 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.vae.WanVideoVAE38 as holder.vae (extra_kwargs keys=[])
-2026-09-25 00:35:30,230 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.text_encoder.WanTextEncoder as holder.text_encoder (extra_kwargs keys=[])
-2026-09-25 00:36:40,881 [INFO] openwam.deploy.model_loader: Architecture: dual_system_self_attn (framework=dual_system variant=joint_self_attn)
-2026-09-25 00:36:43,083 [INFO] openwam.deploy.model_loader: Loading all models with dtype=torch.bfloat16 (mixed_precision=bf16)
-2026-09-25 00:36:48,305 [INFO] openwam.deploy.model_loader: [normalizer] Resolving deployment action normalizer from checkpoint dir: /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full
-2026-09-25 00:36:48,306 [INFO] openwam.deploy.model_loader: [normalizer] Saved config: normalize_mode=min-max, action_mode=eef
-2026-09-25 00:36:48,308 [INFO] openwam.deploy.model_loader: [normalizer] Found pre-computed stats file: /root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full/normalization_stats.npy (exists ✓)
-2026-09-25 00:36:49,216 [INFO] openwam.deploy.model_loader: [normalizer] Active: mode=min-max action_mode=eef dim=20 stats=/root/data/robot/OpenWAM/assets/openwam_ckpt/openwam_alpha/OpenWAM-Alpha-Sim-RoboTwin-Full/normalization_stats.npy
-2026-09-25 00:36:49,217 [INFO] openwam.deploy.model_loader: [normalizer/unify] ON: action 80D -> raw 20D; raw state 20D -> 80D unified; then unnormalize.
-2026-09-25 00:36:49,217 [INFO] openwam.deploy.model_loader: Model loaded successfully on cuda:6
-2026-09-25 00:36:49,233 [INFO] openwam.deploy.engine: DiT velocity cache enabled (threshold=0.990)
-2026-09-25 00:36:49,234 [INFO] deploy: Inference engine ready — steps=10 denoise_mode=sync
-2026-09-25 00:36:49,239 [INFO] openwam.deploy.server: [obs] View config: multiview=True, camera_layout=['head_camera', 'left_camera', 'right_camera'], canvas=384x320
-2026-09-25 00:36:49,239 [INFO] openwam.deploy.server: Starting PolicyServer: ws://127.0.0.1:8848
-2026-09-25 00:36:49,263 [INFO] websockets.server: server listening on 127.0.0.1:8848
-2026-09-25 00:36:49,263 [INFO] openwam.deploy.server: WebSocket server started on ws://127.0.0.1:8848
-2026-09-25 00:36:50,383 [ERROR] websockets.server: opening handshake failed
-Traceback (most recent call last):
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 138, in parse
-    request_line = yield from parse_line(read_line)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 320, in parse_line
-    line = yield from read_line(MAX_LINE_LENGTH)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/streams.py", line 46, in read_line
-    raise EOFError(f"stream ends after {p} bytes, before end of line")
-EOFError: stream ends after 0 bytes, before end of line
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/server.py", line 547, in parse
-    request = yield from Request.parse(
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 140, in parse
-    raise EOFError("connection closed while reading HTTP request line") from exc
-EOFError: connection closed while reading HTTP request line
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 356, in conn_handler
-    await connection.handshake(
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 207, in handshake
-    raise self.protocol.handshake_exc
-websockets.exceptions.InvalidMessage: did not receive a valid HTTP request
-2026-09-25 00:37:03,066 [INFO] websockets.server: connection open
-2026-09-25 00:37:03,066 [INFO] openwam.deploy.server: Client connected: ('127.0.0.1', 41946)
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:01<00:12,  1.41s/it]Joint denoising:  20%|██        | 2/10 [00:01<00:05,  1.55it/s]Joint denoising:  60%|██████    | 6/10 [00:01<00:00,  5.93it/s]Joint denoising: 100%|██████████| 10/10 [00:01<00:00, 10.63it/s]Joint denoising: 100%|██████████| 10/10 [00:01<00:00,  5.77it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.16it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.22it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 21.70it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 27.91it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.07it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.18it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.08it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 21.85it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 27.41it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 22.79it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.08it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.40it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.13it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 28.15it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.31it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.99it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.39it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.33it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 28.48it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.50it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.86it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.15it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 21.95it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 27.96it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.06it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.11it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  8.96it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 20.90it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 26.49it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 22.08it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.50it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  8.85it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 21.28it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 27.31it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 22.43it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  5.98it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:01,  6.03it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 14.19it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.10it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 15.00it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.83it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.26it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.11it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 28.46it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.37it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.84it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.13it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 21.66it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 27.71it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 22.87it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.15it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.49it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.58it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 28.82it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.78it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.96it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.34it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 21.96it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 28.31it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.32it/s]
-2026-09-25 00:41:57,577 [INFO] openwam.deploy.server: Client disconnected
-2026-09-25 00:42:09,840 [INFO] websockets.server: connection open
-2026-09-25 00:42:09,840 [INFO] openwam.deploy.server: Client connected: ('127.0.0.1', 44524)
-2026-09-25 00:43:08,308 [INFO] websockets.server: server closing
-2026-09-25 00:43:08,308 [INFO] websockets.server: server closed
-Traceback (most recent call last):
-  File "/root/data/robot/OpenWAM/scripts/deploy.py", line 20, in <module>
-    main()
-  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 693, in main
-    server.run(host=host, port=port)
-  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 310, in run
-    asyncio.run(serve())
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/runners.py", line 44, in run
-    return loop.run_until_complete(main)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
-    self.run_forever()
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
-    self._run_once()
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 1871, in _run_once
-    event_list = self._selector.select(timeout)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/selectors.py", line 469, in select
-    fd_event_list = self._selector.poll(timeout, max_ev)
-KeyboardInterrupt

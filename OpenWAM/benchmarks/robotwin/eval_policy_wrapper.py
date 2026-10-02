@@ -16,6 +16,7 @@ import types
 from pathlib import Path
 from typing import Any
 
+import numpy as np
 import yaml
 
 _REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -425,6 +426,36 @@ def _write_labtasker_result(payload: dict) -> None:
         json.dump(payload, handle, indent=2)
 
 
+def _trace_step(task_env: Any, observation: dict[str, Any], action: Any) -> dict[str, Any]:
+    endpose = observation.get("endpose", {})
+    contacts = []
+    try:
+        for contact in task_env.scene.get_contacts():
+            names = sorted((contact.bodies[0].entity.name, contact.bodies[1].entity.name))
+            if not any(token in name.lower() for name in names for token in ("gripper", "finger", "hand")):
+                continue
+            points = [list(map(float, point.position)) for point in list(contact.points)[:4]]
+            contacts.append({"bodies": names, "points": points})
+    except Exception:
+        contacts = []
+    return {
+        "step": int(task_env.take_action_cnt),
+        "left_endpose": np.asarray(endpose.get("left_endpose", []), dtype=float).tolist(),
+        "right_endpose": np.asarray(endpose.get("right_endpose", []), dtype=float).tolist(),
+        "left_gripper": float(endpose.get("left_gripper", 0.0)),
+        "right_gripper": float(endpose.get("right_gripper", 0.0)),
+        "action": np.asarray(action, dtype=float).reshape(-1).tolist(),
+        "contacts": contacts,
+    }
+
+
+def _write_trajectory_trace(path: Path, payload: dict[str, Any]) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temp = path.with_suffix(path.suffix + ".tmp")
+    temp.write_text(json.dumps(payload, separators=(",", ":")), encoding="utf-8")
+    temp.replace(path)
+
+
 def _initialize_eval_task_state(task_name: str, task_env: Any) -> None:
     """Recreate task fields that verified RoboTwin sets only in ``play_once``.
 
@@ -605,13 +636,46 @@ def _install_eval(module) -> None:
 
                 reset_func(model)
                 success = False
+                trace_path_value = os.environ.get("ROBOTWIN_TRACE_FILE", "").strip()
+                trace_steps: list[dict[str, Any]] = []
+                original_take_action = task_env.take_action
+                last_action: list[Any] = [None]
+
+                if trace_path_value:
+                    def traced_take_action(action, *take_args, **take_kwargs):
+                        last_action[0] = np.asarray(action, dtype=float).copy()
+                        return original_take_action(action, *take_args, **take_kwargs)
+
+                    task_env.take_action = traced_take_action
                 while task_env.take_action_cnt < task_env.step_lim:
                     with domain.activate():
                         observation = task_env.get_obs()
                     eval_func(task_env, model, observation)
+                    if trace_path_value and last_action[0] is not None:
+                        trace_steps.append(_trace_step(task_env, observation, last_action[0]))
                     if task_env.eval_success:
                         success = True
                         break
+                task_env.take_action = original_take_action
+                if trace_path_value:
+                    _write_trajectory_trace(
+                        Path(trace_path_value),
+                        {
+                            "schema_version": 1,
+                            "task": task_name,
+                            "mode": args["task_config"],
+                            "method": os.environ.get("ROBOTWIN_TRACE_METHOD"),
+                            "state_index": episode,
+                            "rollout_index": int(os.environ.get("ROBOTWIN_TRACE_ROLLOUT", "0")),
+                            "seed": seed,
+                            "policy_sample_seed": int(os.environ["ROBOTWIN_POLICY_SAMPLE_SEED"])
+                            if os.environ.get("ROBOTWIN_POLICY_SAMPLE_SEED") else None,
+                            "manifest_hash": manifest_hash,
+                            "instruction": entry["instructions"][selected_type],
+                            "success": success,
+                            "steps": trace_steps,
+                        },
+                    )
                 if task_env.eval_video_path is not None:
                     task_env._del_eval_video_ffmpeg()
                 if success:

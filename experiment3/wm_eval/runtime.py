@@ -28,6 +28,21 @@ class EvalContext:
 
     def environment(self) -> dict[str, str]:
         env = os.environ.copy()
+        robotwin_python = self.config.get("paths", {}).get("robotwin_python")
+        if robotwin_python:
+            robotwin_prefix = Path(robotwin_python).resolve().parent.parent
+            robotwin_bin = robotwin_prefix / "bin"
+            current_path = env.get("PATH", "")
+            env["PATH"] = str(robotwin_bin) + (os.pathsep + current_path if current_path else "")
+            cuda_target = robotwin_prefix / "targets" / "x86_64-linux"
+            if cuda_target.is_dir():
+                for key, path in (
+                    ("CPATH", cuda_target / "include"),
+                    ("LIBRARY_PATH", cuda_target / "lib"),
+                ):
+                    current = env.get(key, "")
+                    env[key] = str(path) + (os.pathsep + current if current else "")
+            env.setdefault("TORCH_CUDA_ARCH_LIST", "12.0")
         matched_libs = self.config["paths"].get("matched_nvidia_libs")
         if matched_libs:
             current = env.get("LD_LIBRARY_PATH", "")

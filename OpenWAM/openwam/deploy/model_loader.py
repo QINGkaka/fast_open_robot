@@ -85,6 +85,20 @@ def load_from_checkpoint_dir(
         raise FileNotFoundError(f"config.yaml not found in {ckpt_dir}")
     cfg = OmegaConf.load(config_path)
 
+    cache_disabled = os.environ.get("OPENWAM_DISABLE_TEXT_EMBEDDING_CACHE", "").strip().lower() in {
+        "1", "true", "yes", "on"
+    }
+    cache_enabled = bool(
+        OmegaConf.select(cfg, "model.video_backbone.use_cached_text_embeddings", default=False)
+    ) and not cache_disabled
+    cache_dir = os.environ.get("OPENWAM_TEXT_EMBEDDING_CACHE_DIR") or OmegaConf.select(
+        cfg, "model.video_backbone.text_embedding_cache_dir", default=None
+    )
+    if cache_enabled and not cache_dir:
+        raise ValueError("Cached text embeddings are enabled but no cache directory is configured")
+    if cache_disabled:
+        logger.info("Precomputed text embedding cache disabled by environment; loading Wan T5")
+
     # 2. Resolve checkpoint file
     if ckpt_name is not None:
         ckpt_path = os.path.join(ckpt_dir, ckpt_name)
@@ -119,6 +133,14 @@ def load_from_checkpoint_dir(
     if vb_components is not None:
         logger.info("Using config-embedded component specs for video-backbone construction")
         vb_cfg_dict = OmegaConf.to_container(cfg.model.video_backbone, resolve=True)
+        if cache_enabled:
+            vb_cfg_dict["components"] = [
+                component
+                for component in (vb_cfg_dict.get("components") or [])
+                if component.get("attr") != "text_encoder"
+            ]
+            vb_cfg_dict.pop("tokenizer", None)
+            logger.info("Building Wan without a text encoder; cache=%s", cache_dir)
         # CosmosPredict25 Reason1 self-containment: the ckpt's Reason1 weights
         # live in the unified safetensors and the small structural artifacts
         # (config.json + tokenizer.json) under ``<ckpt_dir>/reason1/`` —
@@ -207,7 +229,7 @@ def load_from_checkpoint_dir(
         OmegaConf.select(cfg, "deployment.external_text_encoder_from_model_path", default=False)
     )
     allowed_missing_prefixes: tuple[str, ...] = ()
-    if external_text_encoder:
+    if external_text_encoder and not cache_enabled:
         model_path = OmegaConf.select(cfg, "model.video_backbone.model_path", default=None)
         if not model_path:
             raise ValueError(
@@ -221,6 +243,12 @@ def load_from_checkpoint_dir(
             str(model_path), device="cpu"
         )
         allowed_missing_prefixes = ("video_backbone.text_encoder.",)
+    elif cache_enabled:
+        from openwam.model.video_backbone.wan.text_embedding_cache import TextEmbeddingCache
+
+        architecture.video_backbone._text_embedding_cache = TextEmbeddingCache(str(cache_dir))
+        allowed_missing_prefixes = ("video_backbone.text_encoder.",)
+        logger.info("Attached precomputed Wan text embedding cache: %s", cache_dir)
 
     # 5. Load checkpoint weights. External frozen components are the only tolerated omissions.
     architecture.load_checkpoint(

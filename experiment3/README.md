@@ -84,8 +84,105 @@ python run_experiment3.py run --config config.formal.json
 python run_experiment3.py summarize --run-dir runs/<run-id>
 ```
 
+## One-command OpenWAM Runs
+
+### Experiment 3 selected-task protocol
+
+The current Experiment 3 protocol evaluates the five tasks in
+`tasks/seen_5_exp3.txt` and all ten tasks in `tasks/unseen_10.txt`. For every
+task and condition, it replays 10 fixed manifest states 32 times with distinct,
+deterministic policy-sampling seeds. No-WM and WM use paired seeds for the same
+task, condition, state, and rollout index.
+
+This is `15 tasks x 2 conditions x 2 methods x 10 states x 32 rollouts = 19,200`
+rollouts. Set `protocol.episodes` to 10 and `protocol.rollouts_per_state` to 32;
+setting episodes to 320 is not equivalent because that generates 320 different
+initial states. Start from `config.openwam.exp3_15tasks.template.json`.
+
+With `run_openwam_remote_formal.py --dynamic-pool`, repeated-rollout jobs are
+scheduled at `(task, condition, state)` granularity. Each simulator worker runs
+the 32 rollouts for one fixed state, then immediately claims another state.
+Every rollout is stored as an immutable `sNNN_rNNN.json` part, so rerunning the
+same command validates and resumes completed work.
+
+Apply both `patches/openwam-session-isolation.patch` and
+`patches/openwam-policy-sampling-seed.patch` to the OpenWAM checkout. The latter
+propagates the recorded rollout seed through the client request into diffusion
+sampling; without it, repeated rollouts do not implement the intended sampling
+protocol.
+
+### Legacy all-task benchmark
+
+Both launchers cover all 50 tasks, clean and randomized conditions, and the
+No-WM and WM checkpoints. Each initial state receives one policy rollout.
+
+Run the 4-state smoke protocol first (800 rollouts):
+
+```bash
+cp config.openwam.smoke4.template.json config.openwam.smoke4.json
+# Edit OpenWAM/RoboTwin/Python/checkpoint paths in config.openwam.smoke4.json.
+python run_experiment3.py validate --config config.openwam.smoke4.json
+./run_openwam_smoke4.sh
+```
+
+The formal protocol uses 100 states per cell (20,000 rollouts):
+
+The formal OpenWAM protocol evaluates 50 tasks under clean and randomized
+conditions, comparing No-WM and WM on 100 valid initial states per cell. Each
+state receives one policy rollout, for 20,000 rollouts in total.
+
+Configure the machine once:
+
+```bash
+cp config.openwam.formal.template.json config.openwam.formal.json
+# Edit OpenWAM/RoboTwin/Python/checkpoint paths in config.openwam.formal.json.
+python run_experiment3.py validate --config config.openwam.formal.json
+```
+
+On a 40-GPU machine, both launchers create 20 isolated workers by default.
+GPUs 0-19 run RoboTwin simulators and GPUs 20-39 host OpenWAM servers:
+
+```bash
+tmux new -s openwam-exp3
+./run_openwam_formal.sh
+```
+
+Tasks are greedily balanced using RoboTwin's official per-task step limits.
+Each worker gets a distinct model GPU, simulator GPU, port, config, log, and
+result directory. Results are checkpointed every 10 episodes. If a process or
+machine stops, run the same command again; validated batches are reused and
+only missing batches are executed.
+
+Override GPU pairs or the output directory without editing the script:
+
+```bash
+MODEL_GPUS=8-15 SIM_GPUS=0-7 RUN_DIR=/data/exp3/run_01 ./run_openwam_formal.sh
+```
+
+Use the same overrides with `run_openwam_smoke4.sh` on smaller machines. The
+smoke and formal defaults use separate manifest and result directories, so
+their outputs cannot be mixed accidentally.
+
+The launcher refuses to use missing GPUs or GPUs with more than 2 GiB already allocated.
+Set `MAX_USED_MEMORY_MIB` to change that threshold, or pass `--allow-busy-gpus` only when
+GPU sharing is intentional.
+
+Progress is printed once per minute. Final artifacts are written to
+`$RUN_DIR/summary/summary.md`, `all_results.csv`, and `status.json`. A complete
+run has 200/200 task-condition-model cells and 20,000 rollouts.
+
 The released-checkpoint smoke run only verifies the pipeline. It is not formal
 OOD evidence because those checkpoints were not trained with this 40/10 split.
+
+## Split-host OpenWAM Runs
+
+For deployments where RoboTwin rendering and OpenWAM inference run on separate
+GPU hosts, use `run_openwam_remote_formal.py`. It keeps one model server resident
+per inference GPU, supports multiple isolated simulator clients per server,
+dynamically assigns task-condition jobs, reuses completed result parts after a
+restart, and monitors SSH tunnels with keepalives. See
+[`REMOTE_PARALLEL.md`](REMOTE_PARALLEL.md) and apply
+`patches/openwam-session-isolation.patch` to the verified OpenWAM revision.
 
 ## Outputs
 

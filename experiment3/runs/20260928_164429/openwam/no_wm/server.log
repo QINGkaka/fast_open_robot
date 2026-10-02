@@ -1,135 +1,0 @@
-2026-09-28 16:44:41,375 [INFO] openwam.model.action_backbone.components: Using attention backend: sdpa (auto-detected)
-2026-09-28 16:44:41,376 [INFO] deploy: Attention backend diagnostics:
-  ActionDiT          : _sdpa
-  Video DiT          : torch_sdpa
-  Wan shared core    : torch
-2026-09-28 16:44:41,433 [INFO] openwam.deploy.model_loader: Loading checkpoint: /root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only/checkpoint_step_50000.safetensors
-2026-09-28 16:44:41,434 [INFO] openwam.deploy.model_loader: Using config-embedded component specs for video-backbone construction
-2026-09-28 16:44:41,435 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.dit.WanModel as holder.dit (extra_kwargs keys=['has_image_input', 'patch_size', 'in_dim', 'dim', 'ffn_dim', 'freq_dim', 'text_dim', 'out_dim', 'num_heads', 'num_layers', 'eps', 'seperated_timestep', 'require_clip_embedding', 'require_vae_embedding', 'fuse_vae_embedding_in_latents'])
-2026-09-28 16:45:15,475 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.vae.WanVideoVAE38 as holder.vae (extra_kwargs keys=[])
-2026-09-28 16:45:20,308 [INFO] openwam.model.video_backbone.wan.loader: Instantiating openwam.model.video_backbone.wan.models.text_encoder.WanTextEncoder as holder.text_encoder (extra_kwargs keys=[])
-2026-09-28 16:46:23,021 [INFO] openwam.model.video_backbone.wan.loader: Tokenizer not found under ckpt_dir; falling back to model_path/google/umt5-xxl
-2026-09-28 16:46:31,038 [INFO] openwam.deploy.model_loader: Architecture: dual_system_self_attn (framework=dual_system variant=joint_self_attn)
-2026-09-28 16:46:31,039 [INFO] openwam.deploy.model_loader: Loading frozen text encoder from upstream model path: /root/data/robot/OpenWAM/assets/Wan2.2-TI2V-5B
-Loading models from: "/root/data/robot/OpenWAM/assets/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth"
-Detected non-safetensors files, which may cause slower loading. It's recommended to convert it to a safetensors file.
-Loaded model: {
-    "model_name": "wan_video_text_encoder",
-    "model_class": "openwam.model.video_backbone.wan.models.text_encoder.WanTextEncoder",
-    "extra_kwargs": null
-}
-Using wan_video_text_encoder from "/root/data/robot/OpenWAM/assets/Wan2.2-TI2V-5B/models_t5_umt5-xxl-enc-bf16.pth".
-No wan_video_dit models available. This is not an error.
-No wan_video_vae models available. This is not an error.
-No wan_video_image_encoder models available. This is not an error.
-No wan_video_motion_controller models available. This is not an error.
-No wan_video_vace models available. This is not an error.
-No wan_video_vap models available. This is not an error.
-No wans2v_audio_encoder models available. This is not an error.
-No wan_video_animate_adapter models available. This is not an error.
-2026-09-28 16:46:47,668 [INFO] openwam.deploy.model_loader: Loading all models with dtype=torch.bfloat16 (mixed_precision=bf16)
-2026-09-28 16:46:52,759 [INFO] openwam.deploy.model_loader: [normalizer] Resolving deployment action normalizer from checkpoint dir: /root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only
-2026-09-28 16:46:52,760 [INFO] openwam.deploy.model_loader: [normalizer] Saved config: normalize_mode=min-max, action_mode=eef
-2026-09-28 16:46:52,762 [INFO] openwam.deploy.model_loader: [normalizer] Found pre-computed stats file: /root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only/normalization_stats.npy (exists ✓)
-2026-09-28 16:46:53,838 [INFO] openwam.deploy.model_loader: [normalizer] Active: mode=min-max action_mode=eef dim=20 stats=/root/data/robot/OpenWAM/assets/openwam_ckpt/experiment3/openwam-robotwin-clean40-action-only/normalization_stats.npy
-2026-09-28 16:46:53,839 [INFO] openwam.deploy.model_loader: [normalizer/unify] ON: action 80D -> raw 20D; raw state 20D -> 80D unified; then unnormalize.
-2026-09-28 16:46:53,839 [INFO] openwam.deploy.model_loader: Model loaded successfully on cuda:5
-2026-09-28 16:46:53,859 [INFO] openwam.deploy.engine: DiT velocity cache enabled (threshold=0.990)
-2026-09-28 16:46:53,860 [INFO] deploy: Inference engine ready — steps=10 denoise_mode=sync
-2026-09-28 16:46:53,865 [INFO] openwam.deploy.server: [obs] View config: multiview=True, camera_layout=['head_camera', 'left_camera', 'right_camera'], canvas=384x320
-2026-09-28 16:46:53,866 [INFO] openwam.deploy.server: Starting PolicyServer: ws://127.0.0.1:8848
-2026-09-28 16:46:53,895 [INFO] websockets.server: server listening on 127.0.0.1:8848
-2026-09-28 16:46:53,895 [INFO] openwam.deploy.server: WebSocket server started on ws://127.0.0.1:8848
-2026-09-28 16:46:54,040 [ERROR] websockets.server: opening handshake failed
-Traceback (most recent call last):
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 138, in parse
-    request_line = yield from parse_line(read_line)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 320, in parse_line
-    line = yield from read_line(MAX_LINE_LENGTH)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/streams.py", line 46, in read_line
-    raise EOFError(f"stream ends after {p} bytes, before end of line")
-EOFError: stream ends after 0 bytes, before end of line
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/server.py", line 547, in parse
-    request = yield from Request.parse(
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/http11.py", line 140, in parse
-    raise EOFError("connection closed while reading HTTP request line") from exc
-EOFError: connection closed while reading HTTP request line
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 356, in conn_handler
-    await connection.handshake(
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 207, in handshake
-    raise self.protocol.handshake_exc
-websockets.exceptions.InvalidMessage: did not receive a valid HTTP request
-2026-09-28 16:47:07,096 [INFO] websockets.server: connection open
-2026-09-28 16:47:07,097 [INFO] openwam.deploy.server: Client connected: ('127.0.0.1', 46670)
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:02<00:24,  2.68s/it]Joint denoising:  20%|██        | 2/10 [00:02<00:09,  1.18s/it]Joint denoising:  60%|██████    | 6/10 [00:02<00:01,  3.45it/s]Joint denoising:  80%|████████  | 8/10 [00:03<00:00,  4.86it/s]Joint denoising: 100%|██████████| 10/10 [00:03<00:00,  3.32it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.09it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.50it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.53it/s]Joint denoising:  70%|███████   | 7/10 [00:00<00:00, 20.31it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 19.93it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.77it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.39it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.13it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.06it/s]Joint denoising:  40%|████      | 4/10 [00:00<00:00,  9.30it/s]Joint denoising:  50%|█████     | 5/10 [00:00<00:00,  9.48it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00,  9.34it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.69it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 13.29it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.93it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.15it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.26it/s]Joint denoising:  70%|███████   | 7/10 [00:00<00:00, 20.59it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.52it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.75it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.88it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.21it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.23it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 24.88it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.45it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.98it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.46it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.66it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 25.10it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.75it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.76it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.33it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.54it/s]Joint denoising:  70%|███████   | 7/10 [00:00<00:00, 20.97it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.67it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.96it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.78it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.23it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.09it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 24.66it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.28it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.75it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.18it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.40it/s]Joint denoising:  70%|███████   | 7/10 [00:00<00:00, 20.69it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.64it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.83it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.90it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.19it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.40it/s]Joint denoising:  70%|███████   | 7/10 [00:00<00:00, 20.63it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.54it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 18.81it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.87it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.32it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.29it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 24.85it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.47it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.75it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.18it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.15it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 24.77it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.33it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.95it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.43it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.06it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 24.67it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.38it/s]
-2026-09-28 16:49:52,445 [INFO] openwam.deploy.server: Client disconnected
-2026-09-28 16:50:04,514 [INFO] websockets.server: connection open
-2026-09-28 16:50:04,514 [INFO] openwam.deploy.server: Client connected: ('127.0.0.1', 48806)
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:00,  9.67it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.75it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.94it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 25.38it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 24.20it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.78it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  9.24it/s]Joint denoising:  60%|██████    | 6/10 [00:00<00:00, 22.19it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 24.68it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 23.31it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.50it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  8.97it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.14it/s]Joint denoising:  40%|████      | 4/10 [00:00<00:00,  9.25it/s]Joint denoising:  50%|█████     | 5/10 [00:00<00:00,  9.28it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 18.72it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 13.16it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.39it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  8.93it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.11it/s]Joint denoising:  40%|████      | 4/10 [00:00<00:00,  9.21it/s]Joint denoising:  50%|█████     | 5/10 [00:00<00:00,  9.28it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 18.74it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 13.15it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.37it/s]Joint denoising:  20%|██        | 2/10 [00:00<00:00,  8.83it/s]Joint denoising:  30%|███       | 3/10 [00:00<00:00,  9.06it/s]Joint denoising:  70%|███████   | 7/10 [00:00<00:00, 19.71it/s]Joint denoising:  90%|█████████ | 9/10 [00:00<00:00, 19.24it/s]Joint denoising: 100%|██████████| 10/10 [00:00<00:00, 17.97it/s]
-Joint denoising:   0%|          | 0/10 [00:00<?, ?it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  8.65it/s]Joint denoising:  10%|█         | 1/10 [00:00<00:01,  7.11it/s]
-2026-09-28 16:51:22,716 [INFO] websockets.server: server closing
-2026-09-28 16:51:22,717 [INFO] websockets.server: server closed
-Traceback (most recent call last):
-  File "/root/data/robot/OpenWAM/scripts/deploy.py", line 20, in <module>
-    main()
-  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 693, in main
-    server.run(host=host, port=port)
-  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 310, in run
-    asyncio.run(serve())
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/runners.py", line 44, in run
-    return loop.run_until_complete(main)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 636, in run_until_complete
-    self.run_forever()
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 603, in run_forever
-    self._run_once()
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/base_events.py", line 1909, in _run_once
-    handle._run()
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/asyncio/events.py", line 80, in _run
-    self._context.run(self._callback, *self._args)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/websockets/asyncio/server.py", line 376, in conn_handler
-    await self.handler(connection)
-  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 259, in ws_handler
-    result = self.predict(data)
-  File "/root/data/robot/OpenWAM/openwam/deploy/server.py", line 208, in predict
-    action = self._policy.predict_action(obs)
-  File "/root/data/robot/OpenWAM/openwam/deploy/policy.py", line 63, in predict_action
-    action = self._executor.predict_action(self._build_conditions(obs))
-  File "/root/data/robot/OpenWAM/openwam/deploy/executors/sync_executor.py", line 46, in predict_action
-    self._generate_and_enqueue(conditions)
-  File "/root/data/robot/OpenWAM/openwam/deploy/executors/sync_executor.py", line 53, in _generate_and_enqueue
-    result = self.engine.generate(conditions)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/root/data/robot/OpenWAM/openwam/deploy/engine.py", line 365, in generate
-    result = self.architecture.generate(**generate_kwargs)
-  File "/root/data/miniconda3/envs/openwam/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/root/data/robot/OpenWAM/openwam/model/architectures/base.py", line 1572, in generate
-    noise_pred, action_noise_pred = self.forward(
-  File "/root/data/robot/OpenWAM/openwam/model/architectures/dual_system/joint_self_attn.py", line 242, in forward
-    vstate, astate = driver.run_joint_loop(
-  File "/root/data/robot/OpenWAM/openwam/model/architectures/dual_system/mot_driver.py", line 352, in run_joint_loop

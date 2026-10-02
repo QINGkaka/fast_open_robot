@@ -222,6 +222,8 @@ class ModelClient:
         self._debug_dir = debug_dir
         self._episode = -1  # incremented to 0 on the first reset_model() call
         self._step = 0
+        sample_seed = os.environ.get("ROBOTWIN_POLICY_SAMPLE_SEED", "").strip()
+        self._sample_seed = int(sample_seed) if sample_seed else None
 
         self._ws_url = f"ws://{host}:{port}"
         self._client = WSPolicyClient(self._ws_url, timeout=request_timeout)
@@ -230,7 +232,8 @@ class ModelClient:
             f"[OpenWAMClient] server={self._ws_url} send_state={send_state} "
             f"state_dim={state_dim} "
             f"request_timeout={request_timeout}s action_type={action_type} "
-            f"action_indices={action_indices} debug={debug} debug_dir={debug_dir}"
+            f"action_indices={action_indices} sample_seed={self._sample_seed} "
+            f"debug={debug} debug_dir={debug_dir}"
         )
 
         self._wait_until_healthy()
@@ -360,6 +363,9 @@ class ModelClient:
             right_wrist=client.encode_numpy_b64(cams["right"]) if cams.get("right") is not None else None,
             prompt=prompt,
             state=state_list,
+            # Vary diffusion noise at every possible chunk boundary while keeping
+            # the sequence reproducible for this rollout.
+            seed=None if self._sample_seed is None else self._sample_seed + self._step,
         )
         response = self._client.predict(payload)
         action = np.array(response["action"], dtype=np.float32)

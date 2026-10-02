@@ -1,0 +1,115 @@
+# Experiment 1 双机四任务运行
+
+本机使用 GPU 0–3，`geekplus-h800-141` 使用 GPU 0–2。141 的 GPU 3
+已由其他作业占用。两台机器各自把逐条结果保存在自己的 `runs/distributed/<run_id>`，
+本机另开一个 tmux 协调进程，在两边完成后复制远端结果并自动生成汇总。
+
+## 分片规则
+
+每个任务使用同一份 `demo_clean` state manifest、`unseen` 指令，
+两个模型按相同 `(task, state_id, rollout_id)` 配对。一个 state 的 rollout ID
+按 GPU 数量比例分给两台机器：smoke 的 2 次为本机 `[0,1)`、141 `[1,2)`；
+正式的 32 次为本机 `[0,18)`、141 `[18,32)`。每个 rollout ID 仅在一台机器
+运行，两边的每 GPU worker 都串行使用一个常驻模型服务。两个模型依次运行，
+每张参与的卡一次只加载当前模型，显存占用约 20 GB 属于预期。每条轨迹仍完整执行到
+成功或 RoboTwin 原有步数上限；不保存视频，也不开启取图跳过优化。
+
+## 配置与启动
+
+- `config.experiment1.distributed.smoke.json`：四任务、1 state、每模型每 state 2 条。
+- `config.experiment1.distributed.four_tasks.json`：四任务、20 state、每模型每 state 32 条。
+
+从本机 `exp1` 目录运行一次：
+
+```bash
+python run_experiment1_distributed.py launch \
+  --config config.experiment1.distributed.smoke.json \
+  --run-id four_task_smoke_20260928_0901
+```
+
+启动器会在本机检查/准备 manifest 和文本缓存，将代码及 manifest 复制到 141，
+验证远端配置，然后启动本机 worker、远端 worker、本机合并器三个 tmux session。
+141 的代码路径为 `/home/chw/code/packages/wm-function/exp1`。OpenWAM 代码在
+141 的 `/home/chw/code/packages/OpenWAM/OpenWAM`，评测 Python 环境在
+`/home/chw/miniconda3/envs/openwam`；两个 checkpoint 从共享 `/mnt/data` 读取。
+
+查看进度：
+
+```bash
+tail -f runs/distributed/<run_id>/worker.log
+tail -f runs/distributed/<run_id>/merge.log
+cat runs/distributed/<run_id>/coordinator_status.json
+ssh chw@10.11.141.54 'tail -f /home/chw/code/packages/wm-function/exp1/runs/distributed/<run_id>/worker.log'
+```
+
+本机的 `remote_import/openwam` 保存远端传回的原始结果和日志，合并后的规范结果
+位于本机 `openwam/<method>/raw/<task>/state_NNN/result.json`；
+`summary/` 下自动生成 `per_rollout.csv`、`per_state_by_method.csv`、
+`per_state.csv`、`per_task.csv`、`state_categories.csv` 和 `summary.md`。
+`coordinator_status.json` 的 `exit_code=0` 表示两边成功完成且合并通过。
+远端的原始 rollout 目录留在 `remote_import/openwam`；规范结果目录仅复制
+结果 JSON 和日志，跳过仿真 `runtime`，避免展开指向大体积资产的软链接。
+
+## 并行对照与 smoke 验收
+
+`four_task_smoke_20260928_0901` 在两边各完成 8 条 rollout，合并后
+`per_rollout.csv` 共 16 条，键均唯一、无错误，`coordinator_status.json`
+为 `exit_code=0`。本机四张卡、141 三张卡均参与了分配；141 的 GPU 0
+分到两条轨迹。这个 smoke 每模型每机器只有四条轨迹，不足以测量正式评测的持续吞吐。
+
+同卡双服务 Fan/WM 对照中，单卡顺序处理两条的 worker 墙钟时间为 281.8 秒，
+两个服务并发处理各一条为 277.4 秒，约快 1.6%。两条并发轨迹的观测获取
+各约 101 秒，顺序基线各约 45 秒，资源争用明显。正式配置因此保持
+`persistent_servers_per_gpu=1`；显存余量本身不能预测吞吐提升。
+
+## 共享模型并行会话
+
+`config.experiment1.distributed.shared_smoke.json` 开启 `shared_server_sessions`，
+每张卡仍只装载一份当前 checkpoint。OpenWAM 的每个 WebSocket 连接拥有独立的
+`WAMPolicy`、action buffer、RESET 和请求计数；模型权重与文本缓存由该卡的服务
+共享。`persistent_clients_per_gpu` 限制每卡同时运行的 RoboTwin driver 数量。
+共享会话仅支持同步 executor；推理请求在服务端串行执行，但多个仿真环境可并行
+完成物理步进和取观测。断线后的新连接必须重新 RESET，避免悄悄继承其他轨迹状态。
+
+本机 GPU 0 的 Fan/WM 两轨迹全程对照：单常驻服务串行约 286 秒，同卡两个
+常驻服务约 282 秒，单模型共享两个会话约 257 秒。旧版逐轨迹加载模型的同卡
+两 worker 约 380 秒，但其中一条跑满 400 步；这组旧版时间不可作为同等动作量
+的严格速度比。共享会话两条均无基础设施错误，在 146、151 步成功。
+
+16 步容量探测：同卡共享模型 4 条并发完成，峰值 39.6 GB；8 条完成，峰值
+58.4 GB；10、12 条在装载阶段触及约 75 GB 的保护线，被主动停止。容量
+探测的截断轨迹只用于资源检查，不进入成功率统计。141 的 GPU 0 随后用
+`place_a2b_right`/WM 完整测试单卡 8 并发：8/8 条有效且成功，终止于
+142–158 步，错误数 0，峰值 66.1 GB，全轮约 681 秒。正式配置据此采用
+每卡一份模型、最多 8 个独立会话；10 或 12 不设为默认。另一次本机 8 并发
+测试碰到显存保护线，但测试期间出现了外部作业占用约 56 GB，故不用于
+判断 8 并发本身的显存需求。
+
+共享会话双机四任务 smoke：
+
+```bash
+python run_experiment1_distributed.py launch \
+  --config config.experiment1.distributed.shared_smoke.json \
+  --run-id four_task_shared_smoke_20260928_1000
+```
+
+每任务 1 state、每模型每 state 8 条完整 rollout，共 64 条；本机使用 GPU 0–3，
+141 使用 GPU 0–2。按分片计算，本机每卡最多 5 条并发、141 每卡最多 4 条。
+最终以 `coordinator_status.json`、64 条唯一结果及零错误作为验收条件。
+
+本次运行已通过：本机 40 条、141 机器 24 条，合并后 64 条结果键全部唯一，
+错误数 0；两个 worker 和合并器均为 `exit_code=0`。每张卡每个模型只启动
+一次服务，服务重启数均为 0。最终结果在
+`runs/distributed/four_task_shared_smoke_20260928_1000/summary/`。
+`no_wm` 0/32 成功，`wm` 23/32 成功；该样本仅用于 smoke 验收。
+
+旧版双机四任务 smoke 共 16 条、5,468 个动作步，从运行创建到两边 worker
+完成约 1,140 秒，折合 50.5 条/小时。共享会话 smoke 共 64 条、21,980 个动作步，
+从创建到自动合并完成约 2,550 秒，折合 90.4 条/小时，端到端吞吐约为旧版的
+1.79 倍。两轮每条平均步数分别为 341.8 和 343.4，工作量口径接近；新一轮
+rollout 数更多、启动开销摊销也更多，因此 1.79 倍是整轮实测提升，不能单独
+归因于会话并行。
+
+正式启动前，应先完成 20 state manifest 的构建和配对检查。正式配置使用独立的
+`manifests/experiment1_distributed_4_20_states`，避免覆盖早期单 state 记录。
+本次四任务 smoke 已通过。正式 5,120 条评测仍需先构建并检查 20 state manifest。

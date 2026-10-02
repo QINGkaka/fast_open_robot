@@ -126,6 +126,7 @@ def build_payload(
     right_wrist: Optional[str] = None,
     prompt: str = "",
     state: Optional[list] = None,
+    seed: Optional[int] = None,
 ) -> dict:
     """Assemble an obs payload from base64-encoded images.
 
@@ -143,4 +144,6 @@ def build_payload(
     }
     if state is not None:
         payload["state"] = list(state)
+    if seed is not None:
+        payload["seed"] = int(seed)
     return payload

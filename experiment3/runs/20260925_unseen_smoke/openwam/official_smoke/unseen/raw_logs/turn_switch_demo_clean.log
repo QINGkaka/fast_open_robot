@@ -1,33 +1,0 @@
-[INFO] SAPIEN EGL ICD: /root/data/miniconda3/envs/robotwin-openwam/lib/python3.10/site-packages/sapien/vulkan_library/10_nvidia.json
-task_name    : turn_switch
-task_config  : demo_clean
-ckpt_setting : exp3_official_smoke_unseen_clean
-server       : ws://127.0.0.1:8848
-gpu          : 0
-seed         : 0
-[eval_policy_wrapper] RoboTwin commit=0aeea2d669c0 eval_policy.py sha256=8b16c766a9c40116
-[eval_policy_wrapper] prewarmed CUDA/Curobo before SAPIEN import
-[eval_policy_wrapper] patched warp.torch compatibility namespace
-============= Config =============
-
-[95mMessy Table:[0m False
-[95mRandom Background:[0m False
-[95mRandom Light:[0m False
-[95mRandom Table Height:[0m 0
-[95mRandom Head Camera Distance:[0m 0
-[94mHead Camera Config:[0m D435, True
-[94mWrist Camera Config:[0m D435, True
-[94mEmbodiment Config:[0m aloha-agilex
-
-==================================
-missing pytorch3d
-[OpenWAMClient] server=ws://127.0.0.1:8848 send_state=True state_dim=20 request_timeout=300s action_type=ee action_indices=None debug=False debug_dir=./debug_images
-[OpenWAMClient] Server healthy at ws://127.0.0.1:8848
-[eval_policy_wrapper] overriding RoboTwin eval test_num=1
-[34mTask Name: turn_switch[0m
-[34mPolicy Name: openwam2robotwin_interface[0m
-step: [92m1 / 400[0mstep: [92m2 / 400[0mstep: [92m3 / 400[0mstep: [92m4 / 400[0mstep: [92m5 / 400[0mstep: [92m6 / 400[0mstep: [92m7 / 400[0mstep: [92m8 / 400[0mstep: [92m9 / 400[0mstep: [92m10 / 400[0mstep: [92m11 / 400[0mstep: [92m12 / 400[0mstep: [92m13 / 400[0mstep: [92m14 / 400[0mstep: [92m15 / 400[0mstep: [92m16 / 400[0mstep: [92m17 / 400[0mstep: [92m18 / 400[0mstep: [92m19 / 400[0mstep: [92m20 / 400[0mstep: [92m21 / 400[0mstep: [92m22 / 400[0mstep: [92m23 / 400[0mstep: [92m24 / 400[0mstep: [92m25 / 400[0mstep: [92m26 / 400[0mstep: [92m27 / 400[0mstep: [92m28 / 400[0mstep: [92m29 / 400[0mstep: [92m30 / 400[0mstep: [92m31 / 400[0mstep: [92m32 / 400[0mstep: [92m33 / 400[0mstep: [92m34 / 400[0mstep: [92m35 / 400[0mstep: [92m36 / 400[0mstep: [92m37 / 400[0mstep: [92m38 / 400[0mstep: [92m39 / 400[0mstep: [92m40 / 400[0mstep: [92m41 / 400[0mstep: [92m42 / 400[0mstep: [92m43 / 400[0mstep: [92m44 / 400[0mstep: [92m45 / 400[0mstep: [92m46 / 400[0mstep: [92m47 / 400[0mstep: [92m48 / 400[0mstep: [92m49 / 400[0mstep: [92m50 / 400[0mstep: [92m51 / 400[0mstep: [92m52 / 400[0mstep: [92m53 / 400[0mstep: [92m54 / 400[0mstep: [92m55 / 400[0mstep: [92m56 / 400[0mstep: [92m57 / 400[0mstep: [92m58 / 400[0mstep: [92m59 / 400[0mstep: [92m60 / 400[0mstep: [92m61 / 400[0mstep: [92m62 / 400[0mstep: [92m63 / 400[0m[92mSuccess![0m
-[93mturn_switch[0m | [94mopenwam2robotwin_interface[0m | [92mdemo_clean[0m | [91mexp3_official_smoke_unseen_clean[0m
-Success rate: [96m1/1[0m => [95m100.0%[0m, current seed: [90m100000[0m
-
-Data has been saved to eval_result/turn_switch/openwam2robotwin_interface/demo_clean/exp3_official_smoke_unseen_clean/2026-09-25 13:35:27/_result.txt

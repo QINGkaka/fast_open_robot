@@ -77,6 +77,8 @@ class _MockWanVB:
         # free functions; provide the state they read explicitly.
         self._tokenizer = _MockTokenizer()
         self.text_encoder = _MockTextEncoder(self._encode_text_calls)
+        self._text_embedding_cache = None
+        self._logged_cached_text_embeddings = False
         self._height_division_factor = 16
         self._width_division_factor = 16
         self._time_division_factor = 4
@@ -241,6 +243,23 @@ def test_both_caches_none_does_not_crash():
     for i in range(3):
         _prep(vb, f"prompt_{i}")
     assert _text_calls(vb) == 3
+
+
+def test_disk_embedding_cache_skips_text_encoder():
+    vb = _MockWanVB()
+    cached_context = torch.ones(1, 3, 8)
+    cached_lengths = torch.tensor([3])
+
+    class _Cache:
+        def load_batch(self, prompts, *, device, dtype):
+            assert prompts == ["prompt_A"]
+            return cached_context.to(dtype=dtype), cached_lengths
+
+    vb._text_embedding_cache = _Cache()
+    result = _prep(vb, "prompt_A")
+
+    assert _text_calls(vb) == 0
+    assert torch.equal(result["context"], cached_context)
 
 
 def _make_i2v_mock():

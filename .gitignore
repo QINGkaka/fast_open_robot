@@ -3,15 +3,31 @@
 **/*.py[cod]
 **/.pytest_cache/
 **/.cache/
+**/.mypy_cache/
+**/.ruff_cache/
+**/.idea/
+**/.vscode/
 
 # Large models, datasets, and simulator assets
 **/*.safetensors
 **/*.pt
 **/*.pth
+**/*.ckpt
+**/*.bin
 **/checkpoints/
 **/data/
+**/runs/
+**/outputs/
+**/output/
+**/logs/
+**/wandb/
+**/envs/
+**/*.tar
+**/*.tar.gz
+**/*.tar.zst
+**/*.zip
 OpenWAM/assets/Wan2.2-TI2V-5B/
-OpenWAM/assets/openwam_ckpt/openwam_alpha/
+OpenWAM/assets/openwam_ckpt/
 FastWAM/third_party/RoboTwin/assets/
 work/RoboTwin-openwam-verified/assets/
 experiment3/**/runtime/

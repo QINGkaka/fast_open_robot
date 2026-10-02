@@ -1,3 +1,0 @@
-family,method,split,condition,success_rate
-openwam,wm,unseen,clean,0.5
-openwam,wm,unseen,randomized,0.25
