@@ -96,6 +96,7 @@ def _make_bypassed_client(*, send_state=True, state_dim=20):
     model._debug_dir = ""
     model._episode = 0
     model._step = 0
+    model._sample_seed = None
     model._client = None
     return model
 

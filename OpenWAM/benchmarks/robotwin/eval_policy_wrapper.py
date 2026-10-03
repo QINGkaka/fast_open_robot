@@ -37,8 +37,10 @@ from benchmarks.utils.task_progress import write_progress  # noqa: E402
 
 # RoboTwin commit this adapter was verified against (README "Verified versions").
 VERIFIED_ROBOTWIN_COMMIT = "0aeea2d669c0f8516f4d5785f0aa33ba812c14b4"
-# RoboTwin paths the adapter depends on; local edits there invalidate the check.
-_ROBOTWIN_WATCHED_PATHS = ("script", "envs", "task_config", "policy")
+# RoboTwin paths this external OpenWAM adapter actually executes. Other bundled
+# policy implementations are not imported by this evaluation path and may be
+# absent from a lightweight RoboTwin checkout.
+_ROBOTWIN_WATCHED_PATHS = ("script", "envs", "task_config")
 
 
 def _canonicalize_torch_cuda(seed: int) -> None:
