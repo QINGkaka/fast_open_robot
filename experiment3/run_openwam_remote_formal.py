@@ -189,6 +189,20 @@ def split_for_tasks(tasks: list[str]) -> dict[str, list[str]]:
     return result
 
 
+def result_signature(
+    run_root: Path, worker: int, split: str, method: str,
+    task: str, condition: str, state: int | None,
+) -> tuple[int, int]:
+    """Return a cheap progress signature for one dynamic-pool job."""
+    parts = (
+        run_root / f"worker_{worker:02d}" / split / "openwam" / method / split
+        / "raw" / task / CONDITIONS[condition] / "parts"
+    )
+    pattern = "*.json" if state is None else f"s{state:03d}_r*.json"
+    files = list(parts.glob(pattern))
+    return len(files), max((path.stat().st_mtime_ns for path in files), default=0)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, default=ROOT / "config.openwam.formal.json")
@@ -237,6 +251,10 @@ def main() -> int:
         "--dynamic-pool", action="store_true",
         help="Dynamically assign task/condition jobs to simulation workers",
     )
+    parser.add_argument(
+        "--worker-stall-timeout", type=int, default=2400,
+        help="Abort if an active dynamic-pool worker writes no result for this many seconds (0 disables)",
+    )
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 
@@ -250,6 +268,8 @@ def main() -> int:
         parser.error("--clients-per-server must be positive")
     if args.servers_per_gpu <= 0:
         parser.error("--servers-per-gpu must be positive")
+    if args.worker_stall_timeout < 0:
+        parser.error("--worker-stall-timeout must be nonnegative")
 
     config_path = args.config.resolve()
     base = resolve_config_paths(load_json(config_path), config_path)
@@ -481,6 +501,7 @@ def main() -> int:
                     )
                     available = list(plan)
                     active: dict[int, tuple[subprocess.Popen, str, str, int | None]] = {}
+                    activity: dict[int, tuple[tuple[int, int], float]] = {}
                     worker_logs: dict[int, Any] = {}
 
                     def launch_job(
@@ -529,6 +550,12 @@ def main() -> int:
                         )
                         workers.append((worker, process, worker_logs[worker]))
                         active[worker] = (process, task, condition, state)
+                        activity[worker] = (
+                            result_signature(
+                                run_root, worker, split, method, task, condition, state
+                            ),
+                            time.monotonic(),
+                        )
                         state_label = "" if state is None else f"/state={state}"
                         print(
                             f"[remote-pool] {method}/{split} W{worker:02d} START "
@@ -568,6 +595,7 @@ def main() -> int:
                             finished.append(worker)
                         for worker in finished:
                             del active[worker]
+                            activity.pop(worker, None)
                             available.append(plan[worker])
 
                         available.sort(key=lambda item: item["worker"])
@@ -577,6 +605,24 @@ def main() -> int:
                             launch_job(item, task, condition, state)
 
                         now = time.monotonic()
+                        for worker, (_, task, condition, state) in active.items():
+                            signature = result_signature(
+                                run_root, worker, split, method, task, condition, state
+                            )
+                            previous, last_progress = activity[worker]
+                            if signature != previous:
+                                activity[worker] = (signature, now)
+                                continue
+                            if (
+                                args.worker_stall_timeout
+                                and now - last_progress >= args.worker_stall_timeout
+                            ):
+                                state_label = "" if state is None else f"/state={state}"
+                                raise RuntimeError(
+                                    f"{method}/{split} W{worker:02d} stalled for "
+                                    f"{int(now - last_progress)}s without a new result: "
+                                    f"{task}/{condition}{state_label}"
+                                )
                         if now - last_heartbeat >= 60:
                             last_heartbeat = now
                             running = {
